@@ -1,1 +1,51 @@
-/* You can add global styles to this file, and also import other style files */
+@import "normalize.css";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.page {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .auth-form {
+      width: 600px;
+      @media (max-width: 768px) {
+        width: 100%;
+      }
+    }
+  }
+}
+
+main {
+  flex-grow: 1;
+  padding: 15px 0px;
+}
+.container {
+  max-width: 1070px;
+  height: 100%;
+  padding: 0px 10px;
+  margin: 0 auto;
+}
+.full-width {
+  width: 100%;
+}
+.text-center {
+  text-align: center;
+}
+
+mat-form-field {
+  margin-bottom: 15px;
+}
