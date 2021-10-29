@@ -10,8 +10,10 @@ export class RoutesService implements OnDestroy {
   routes: RouteInterface[] = [];
   subject: Subject<TeardownLogic> = new Subject<TeardownLogic>();
   private subscription: Subscription;
+  private _menuActivated: boolean = false;
 
   constructor(private authService: AuthService) {
+    this.authService.userSubscriber.subscribe(this.updateRoutes.bind(this));
     const observer = {
       next: this.updateRoutes.bind(this),
       error: () => {},
@@ -21,6 +23,14 @@ export class RoutesService implements OnDestroy {
     this.subject.next();
   }
 
+  get menuActivated(): boolean {
+    return this._menuActivated;
+  }
+
+  toggleMenu(): void {
+    this._menuActivated = !this._menuActivated;
+  }
+
   private updateRoutes(): void {
     let loggedInRoutes: RouteInterface[] = [
       {
@@ -28,25 +38,19 @@ export class RoutesService implements OnDestroy {
         title: 'Logout',
         handler: this.logout.bind(this),
       },
+      {
+        route: `/user/${this.authService.user?.id}`,
+        title: 'My page',
+        handler: noop,
+      },
     ];
-    if (typeof this.authService.user === 'object')
-      setTimeout(
-        () =>
-          loggedInRoutes.push({
-            route: `/user/${this.authService.user!.id}`,
-            title: 'My page',
-            handler: noop,
-          }),
-        0
-      );
 
     if (!this.authService.isLoggedIn)
       loggedInRoutes = [
+        { route: '/auth/register', title: 'Register', handler: noop },
         { route: '/auth/login', title: 'Sign in', handler: noop },
-        { route: '/auth/register', title: 'Sign on', handler: noop },
       ];
-
-    setTimeout(() => (this.routes = [...loggedInRoutes].reverse()), 0);
+    this.routes = [...loggedInRoutes].reverse();
   }
 
   private logout(): void {

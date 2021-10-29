@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from '@core/core.module';
 import { AuthModule } from '@features/auth/auth.module';
+import { UserModule } from '@features/user/user.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,6 +16,7 @@ import { AuthModule } from '@features/auth/auth.module';
     BrowserAnimationsModule,
     CoreModule,
     AuthModule,
+    UserModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
