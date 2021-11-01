@@ -1,0 +1,22 @@
+<mat-card class="collection">
+  <mat-card-header>
+    <mat-card-title>{{ collection.name }}</mat-card-title>
+    <mat-card-subtitle>{{ collection.topic.name }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="collection-content">
+    <a [href]="'collection/' + collection.id">
+      <img
+        class="img"
+        mat-card-image
+        [src]="collection.image"
+        alt="collection-image"
+      />
+    </a>
+    <p>
+      {{ collection.description }}
+    </p>
+  </mat-card-content>
+  <mat-card-actions class="buttons">
+    <button mat-button color="primary">View</button>
+  </mat-card-actions>
+</mat-card>

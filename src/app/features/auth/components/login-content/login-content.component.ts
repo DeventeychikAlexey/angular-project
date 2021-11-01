@@ -5,11 +5,12 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { AuthService, responseType } from '@core/services/auth/auth.service';
+import { AuthService } from '@core/services/auth/auth.service';
 import { PartialObserver } from 'rxjs';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { Router } from '@angular/router';
 import { RoutesService } from '@core/services/routes/routes.service';
+import { ResponseInterface } from '@core/interfaces/response.interface';
 
 @Component({
   selector: 'app-login-content',
@@ -67,14 +68,30 @@ export class LoginContentComponent implements OnInit {
   submit(): void {
     if (this.loginForm.invalid) return;
     const observer: PartialObserver<any> = {
-      next: (resp: responseType) => {
+      next: (resp: ResponseInterface) => {
         const observer = {
+          error: (error: Error) => {},
           complete: () => {
             this.routesService.subject.next();
+            this.router
+              .navigate(['/', 'user', this.authService.user!.id])
+              .then(() => {
+                this.snackbarService.openSnackbar("You're logged in", {
+                  horizontal: 'end',
+                  vertical: 'bottom',
+                });
+              })
+              .catch(() => {
+                this.snackbarService.openSnackbar('Navigation problem', {
+                  horizontal: 'end',
+                  vertical: 'bottom',
+                });
+              });
           },
         };
         if (typeof resp.msg === 'string')
           this.authService.setToken(resp.msg).subscribe(observer);
+        else throw new Error();
       },
       error: () => {
         this.snackbarService.openSnackbar('Invalid data', {
@@ -82,22 +99,6 @@ export class LoginContentComponent implements OnInit {
           vertical: 'bottom',
         });
         this.loginForm.reset();
-      },
-      complete: () => {
-        this.router
-          .navigate(['/', 'auth', 'register'])
-          .then(() => {
-            this.snackbarService.openSnackbar("You're logged in", {
-              horizontal: 'end',
-              vertical: 'bottom',
-            });
-          })
-          .catch(() => {
-            this.snackbarService.openSnackbar('Navigation problem', {
-              horizontal: 'end',
-              vertical: 'bottom',
-            });
-          });
       },
     };
     this.loginForm.markAsPending();

@@ -1,0 +1,22 @@
+.collection {
+  width: 100%;
+}
+a {
+  display: inline-block;
+  width: 100%;
+}
+.collection-content {
+  padding: 5px 0px;
+}
+.img {
+  display: inline-block;
+  height: 200px;
+  object-fit: cover;
+  background-color: #c0bfbf;
+}
+.buttons {
+  display: flex;
+  button {
+    flex-grow: 1;
+  }
+}

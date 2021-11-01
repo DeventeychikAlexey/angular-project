@@ -1,0 +1,18 @@
+<div class="page">
+  <app-header></app-header>
+  <main>
+    <div class="container">
+      <app-filter
+        label="Find by title"
+        field="name"
+        [list]="collections"
+        (listChange)="filteredCollections = $event"
+      ></app-filter>
+      <app-collections
+        *ngIf="filteredCollections"
+        [collections]="filteredCollections"
+      ></app-collections>
+    </div>
+  </main>
+  <app-footer></app-footer>
+</div>

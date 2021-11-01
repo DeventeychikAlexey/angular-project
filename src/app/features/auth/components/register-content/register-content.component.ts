@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { compareValueValidator } from '@shared/validators/compare-value/compare-value.validator';
 import { PartialObserver } from 'rxjs';
-import { AuthService, responseType } from '@core/services/auth/auth.service';
+import { AuthService } from '@core/services/auth/auth.service';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { Router } from '@angular/router';
 

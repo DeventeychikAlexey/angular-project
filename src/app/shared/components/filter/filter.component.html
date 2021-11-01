@@ -1,0 +1,11 @@
+<form (ngSubmit)="submit()" class="form">
+  <mat-form-field class="field" appearance="legacy">
+    <mat-label>{{ label }}</mat-label>
+    <input
+      [(ngModel)]="filterValue"
+      name="filterValue"
+      matInput
+      [placeholder]="placeholder"
+    />
+  </mat-form-field>
+</form>
