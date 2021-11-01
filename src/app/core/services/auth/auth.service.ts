@@ -1,13 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DoCheck, Injectable, OnChanges, SimpleChanges } from '@angular/core';
 import { environment } from '@environment/environment';
-import {
-  BehaviorSubject,
-  Observable,
-  ReplaySubject,
-  Subject,
-  Subscriber,
-} from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { UserInterface } from '@core/interfaces/user.interface';
 import { ResponseInterface } from '@core/interfaces/response.interface';
 import { LoginBodyInterface } from '@core/interfaces/login-body.interface';

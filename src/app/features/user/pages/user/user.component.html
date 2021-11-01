@@ -2,16 +2,28 @@
   <app-header></app-header>
   <main>
     <div class="container">
-      <app-filter
-        label="Find by title"
-        field="name"
-        [list]="collections"
-        (listChange)="filteredCollections = $event"
-      ></app-filter>
-      <app-collections
-        *ngIf="filteredCollections"
-        [collections]="filteredCollections"
-      ></app-collections>
+      <mat-divider></mat-divider>
+      <section>
+        <h2 class="text-center">Create collection</h2>
+        <app-create-collection></app-create-collection>
+      </section>
+      <mat-divider></mat-divider>
+      <section>
+        <h2 class="text-center">Collections</h2>
+        <app-filter
+          label="Find by title"
+          field="name"
+          [list]="collections"
+          (listChange)="filteredCollections = $event"
+        ></app-filter>
+        <app-collections
+          *ngIf="filteredCollections.length > 0; else NoCollections"
+          [collections]="filteredCollections"
+        ></app-collections>
+        <ng-template #NoCollections>
+          <p class="text-center">No collections :(</p>
+        </ng-template>
+      </section>
     </div>
   </main>
   <app-footer></app-footer>
