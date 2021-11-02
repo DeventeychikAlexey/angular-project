@@ -8,7 +8,7 @@ import { LoginBodyInterface } from '@core/interfaces/login-body.interface';
 import { RegisterBodyInterface } from '@core/interfaces/register-body.interface';
 
 @Injectable()
-export class AuthService implements OnChanges, DoCheck {
+export class AuthService {
   private _token: string | null;
   private _user: UserInterface | null = null;
   headerAuthorization = new HttpHeaders();
@@ -101,13 +101,5 @@ export class AuthService implements OnChanges, DoCheck {
       environment.baseURI + 'back/auth/register',
       ops
     );
-  }
-
-  ngDoCheck() {
-    console.log(this._token);
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
   }
 }

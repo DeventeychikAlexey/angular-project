@@ -23,7 +23,10 @@ export class UserComponent implements OnInit, OnDestroy {
     this.subscription = this.route.params.subscribe(
       (params) => (this.id = params.id)
     );
-    this.updateCollections();
+    this.collectionsService.updaterCollections.subscribe(
+      this.updateCollections.bind(this)
+    );
+    this.collectionsService.updaterCollections.next();
   }
 
   updateCollections(): void {

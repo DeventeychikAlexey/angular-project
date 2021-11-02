@@ -49,8 +49,8 @@ export class CreateCollectionComponent implements OnInit {
 
   private _createCollection(): void {
     const observer: PartialObserver<any> = {
-      next: (data) => {
-        console.log(data);
+      next: () => {
+        this.collectionsService.updaterCollections.next();
       },
       error: () => {
         this.snackbarService.openSnackbar('Create error', {

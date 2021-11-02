@@ -6,6 +6,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { CollectionsService } from '@core/services/collections/collections.service';
 import { TopicsService } from '@core/services/topics/topics.service';
+import { DialogService } from '@core/services/dialog.service';
 
 @NgModule({
   providers: [
@@ -14,6 +15,7 @@ import { TopicsService } from '@core/services/topics/topics.service';
     SnackbarService,
     CollectionsService,
     TopicsService,
+    DialogService,
   ],
   imports: [HttpClientModule, MatSnackBarModule],
 })

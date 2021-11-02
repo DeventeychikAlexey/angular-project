@@ -15,6 +15,9 @@ import { FilterComponent } from './components/filter/filter.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,7 @@ import { FormsModule } from '@angular/forms';
     CollectionsComponent,
     CollectionComponent,
     FilterComponent,
+    DialogComponent,
   ],
   exports: [
     HeaderComponent,
@@ -41,6 +45,8 @@ import { FormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
+    RouterModule,
+    MatDialogModule,
   ],
   providers: [RoutesService],
 })
