@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RoutesService } from '@core/services/routes/routes.service';
 
 @Component({
@@ -6,8 +6,6 @@ import { RoutesService } from '@core/services/routes/routes.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   constructor(public routesService: RoutesService) {}
-
-  ngOnInit(): void {}
 }
