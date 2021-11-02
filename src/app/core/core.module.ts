@@ -5,9 +5,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { CollectionsService } from '@core/services/collections/collections.service';
+import { TopicsService } from '@core/services/topics/topics.service';
 
 @NgModule({
-  providers: [AuthService, RoutesService, SnackbarService, CollectionsService],
+  providers: [
+    AuthService,
+    RoutesService,
+    SnackbarService,
+    CollectionsService,
+    TopicsService,
+  ],
   imports: [HttpClientModule, MatSnackBarModule],
 })
 export class CoreModule {
