@@ -4,9 +4,14 @@ import { LoginComponent } from '@features/auth/pages/login/login.component';
 import { RegisterComponent } from '@features/auth/pages/register/register.component';
 
 const routes: Routes = [
-  { path: 'auth', pathMatch: 'full', redirectTo: '/auth/login' },
   {
     path: 'auth',
+    pathMatch: 'full',
+    redirectTo: '/auth/login',
+  },
+  {
+    path: 'auth',
+    data: { showFooter: false },
     children: [
       {
         path: 'login',

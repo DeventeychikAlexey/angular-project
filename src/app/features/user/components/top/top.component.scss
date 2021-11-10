@@ -1,0 +1,15 @@
+.body {
+  p {
+    margin: 5px;
+    font-size: 24px;
+  }
+
+  mat-chip-list {
+    margin: 5px;
+  }
+
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: -5px;
+}

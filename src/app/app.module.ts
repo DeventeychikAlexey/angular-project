@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from '@core/core.module';
 import { AuthModule } from '@features/auth/auth.module';
 import { UserModule } from '@features/user/user.module';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,8 +18,8 @@ import { UserModule } from '@features/user/user.module';
     CoreModule,
     AuthModule,
     UserModule,
+    SharedModule,
   ],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

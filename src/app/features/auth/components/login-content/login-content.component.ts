@@ -5,111 +5,127 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '@core/services/auth/auth.service';
-import { PartialObserver } from 'rxjs';
-import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { Router } from '@angular/router';
-import { RoutesService } from '@core/services/routes/routes.service';
-import { ResponseInterface } from '@core/interfaces/response.interface';
+
+import { SnackBarService } from '@core/services/snack-bar.service';
+import { LoginService } from '@core/services/login.service';
+
+import { ColorsEnum } from '@shared/enums/colors.enum';
+import { FormErrorsEnum } from '@shared/enums/form-errors.enum';
+import { FormLoginErrorsEnum } from '@shared/enums/form-login-errors.enum';
 
 @Component({
   selector: 'app-login-content',
   templateUrl: './login-content.component.html',
-  styleUrls: ['./login-content.component.scss'],
+  styleUrls: ['./login-content.component.scss', '../components.scss'],
 })
 export class LoginContentComponent implements OnInit {
-  loginForm!: FormGroup;
+  form!: FormGroup;
   minLength = 6;
   maxLength = 32;
-  errors = {
-    required: 'You must enter a value',
-    login: 'Email is invalid!',
-    minLength: `Min length is ${this.minLength}`,
-    maxLength: `Max length is ${this.maxLength}`,
-  };
 
   constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private snackbarService: SnackbarService,
-    private router: Router,
-    private routesService: RoutesService
-  ) {
-    this._createForm();
+    private formBuilder: FormBuilder,
+    private loginService: LoginService,
+    private snackBarService: SnackBarService,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this.createForm();
   }
 
-  get pending(): boolean {
-    return this.loginForm.pending;
+  get pending() {
+    return this.form.pending;
   }
 
   get login(): AbstractControl {
-    return this.loginForm.get('login')!;
+    return this.form.get('login')!;
   }
 
   get password(): AbstractControl {
-    return this.loginForm.get('password')!;
+    return this.form.get('password')!;
   }
 
-  get getLoginError(): string {
+  get getLoginError() {
     let error = '';
-    if (this.login.hasError('required')) error = this.errors.required;
-    else if (this.login.hasError('email')) error = this.errors.login;
+
+    if (this.login.hasError('required')) {
+      error = FormErrorsEnum.Required;
+    } else if (this.login.hasError('email')) {
+      error = FormErrorsEnum.Email;
+    }
+
     return error;
   }
 
-  get getPasswordError(): string {
+  get getPasswordError() {
     let error = '';
-    if (this.password.hasError('required')) error = this.errors.required;
-    else if (this.password.hasError('minlength')) error = this.errors.minLength;
-    else if (this.password.hasError('maxlength')) error = this.errors.maxLength;
+
+    if (this.password.hasError('required')) {
+      error = FormErrorsEnum.Required;
+    } else if (this.password.hasError('minlength')) {
+      error = FormLoginErrorsEnum.MinLength;
+    } else if (this.password.hasError('maxlength')) {
+      error = FormLoginErrorsEnum.MaxLength;
+    }
+
     return error;
   }
 
-  submit(): void {
-    if (this.loginForm.invalid) return;
-    const observer: PartialObserver<any> = {
-      next: (resp: ResponseInterface) => {
-        const observer = {
-          error: (error: Error) => {},
-          complete: () => {
-            this.routesService.subject.next();
-            this.router
-              .navigate(['/', 'user', this.authService.user!.id])
-              .then(() => {
-                this.snackbarService.openSnackbar("You're logged in", {
-                  horizontal: 'end',
-                  vertical: 'bottom',
-                });
-              })
-              .catch(() => {
-                this.snackbarService.openSnackbar('Navigation problem', {
-                  horizontal: 'end',
-                  vertical: 'bottom',
-                });
-              });
-          },
-        };
-        if (typeof resp.msg === 'string')
-          this.authService.setToken(resp.msg).subscribe(observer);
-        else throw new Error();
+  submit() {
+    if (this.form.invalid) {
+      return;
+    }
+
+    this.form.markAsPending();
+
+    this.loginService.login(this.form.value).subscribe(
+      (resp) => {
+        if (typeof resp.msg === 'string') {
+          const token = resp.msg;
+
+          localStorage.setItem('token', token);
+          this.loginService.updateToken(token);
+          this.loginService.updateUser().subscribe(
+            () => {},
+            () => {},
+            () => {
+              this.goToOwnPage();
+            }
+          );
+        }
       },
-      error: () => {
-        this.snackbarService.openSnackbar('Invalid data', {
-          horizontal: 'end',
-          vertical: 'bottom',
+      () => {
+        this.snackBarService.openSnackBar('Invalid data', {
+          panelClass: ColorsEnum.Error,
         });
-        this.loginForm.reset();
-      },
-    };
-    this.loginForm.markAsPending();
-    this.authService.login(this.loginForm.value).subscribe(observer);
+
+        this.form.reset();
+      }
+    );
   }
 
-  private _createForm(): void {
-    this.loginForm = this.fb.group({
-      login: ['', [Validators.required, Validators.email]],
+  private goToOwnPage() {
+    this.router
+      .navigate(['/', 'user', this.loginService.user!.id])
+      .then(() => {
+        this.snackBarService.openSnackBar("You're logged in", {
+          panelClass: ColorsEnum.Success,
+        });
+      })
+      .catch(() => {
+        this.snackBarService.openSnackBar('Navigation error', {
+          panelClass: ColorsEnum.Error,
+        });
+      });
+  }
+
+  private createForm() {
+    this.form = this.formBuilder.group({
+      login: [null, [Validators.required, Validators.email]],
       password: [
-        '',
+        null,
         [
           Validators.required,
           Validators.minLength(this.minLength),
@@ -118,6 +134,4 @@ export class LoginContentComponent implements OnInit {
       ],
     });
   }
-
-  ngOnInit(): void {}
 }

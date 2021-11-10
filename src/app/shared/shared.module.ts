@@ -1,23 +1,30 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './components/header/header.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
-import { RoutesService } from '@core/services/routes/routes.service';
-import { FooterComponent } from './components/footer/footer.component';
 import { MatDividerModule } from '@angular/material/divider';
-import { CollectionsComponent } from '@shared/components/collections/collections.component';
 import { MatCardModule } from '@angular/material/card';
-import { CollectionComponent } from '@shared/components/collection/collection.component';
-import { FilterComponent } from './components/filter/filter.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { DialogComponent } from './components/dialog/dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+
+import { HeaderComponent } from '@shared/components/header/header.component';
+import { FooterComponent } from '@shared/components/footer/footer.component';
+import { CollectionsComponent } from '@shared/components/collections/collections.component';
+import { CollectionComponent } from '@shared/components/collection/collection.component';
+import { FilterComponent } from '@shared/components/filter/filter.component';
+import { DialogComponent } from '@shared/components/dialog/dialog.component';
+import { FormFieldInputComponent } from '@shared/components/form-field-input/form-field-input.component';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { ProgressBarComponent } from '@shared/components/progress-bar/progress-bar.component';
+import { FormFieldTextareaComponent } from '@shared/components/form-field-textarea/form-field-textarea.component';
+import { FormFieldSelectComponent } from './components/form-field-select/form-field-select.component';
 
 @NgModule({
   declarations: [
@@ -27,12 +34,23 @@ import { MatDialogModule } from '@angular/material/dialog';
     CollectionComponent,
     FilterComponent,
     DialogComponent,
+    FormFieldInputComponent,
+    ButtonComponent,
+    ProgressBarComponent,
+    FormFieldTextareaComponent,
+    FormFieldSelectComponent,
   ],
   exports: [
     HeaderComponent,
     FooterComponent,
     CollectionsComponent,
     FilterComponent,
+    FormFieldInputComponent,
+    ButtonComponent,
+    ProgressBarComponent,
+    FormFieldTextareaComponent,
+    FormFieldSelectComponent,
+    CollectionComponent,
   ],
   imports: [
     CommonModule,
@@ -47,7 +65,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     FormsModule,
     RouterModule,
     MatDialogModule,
+    ReactiveFormsModule,
+    MatProgressBarModule,
+    MatSelectModule,
   ],
-  providers: [RoutesService],
 })
 export class SharedModule {}

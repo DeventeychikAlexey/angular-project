@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RoutesService } from '@core/services/routes/routes.service';
+import { RoutesService } from '@core/services/routes.service';
 
 @Component({
   selector: 'app-header',

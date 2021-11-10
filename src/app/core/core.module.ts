@@ -1,28 +1,35 @@
-import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { AuthService } from '@core/services/auth/auth.service';
-import { RoutesService } from '@core/services/routes/routes.service';
-import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { SnackbarService } from '@core/services/snackbar/snackbar.service';
-import { CollectionsService } from '@core/services/collections/collections.service';
-import { TopicsService } from '@core/services/topics/topics.service';
+
+import { RoutesService } from '@core/services/routes.service';
+import { SnackBarService } from '@core/services/snack-bar.service';
+import { CollectionsService } from '@core/services/collections.service';
+import { TopicsService } from '@core/services/topics.service';
 import { DialogService } from '@core/services/dialog.service';
+import { AuthorizationInterceptorService } from '@core/services/authorization-interceptor.service';
+import { LoginService } from '@core/services/login.service';
+import { RegisterService } from '@core/services/register.service';
+import { UserRightsService } from '@core/services/user-rights.service';
+import { PagesService } from '@core/services/pages.service';
 
 @NgModule({
   providers: [
-    AuthService,
     RoutesService,
-    SnackbarService,
+    SnackBarService,
     CollectionsService,
     TopicsService,
     DialogService,
+    LoginService,
+    RegisterService,
+    UserRightsService,
+    PagesService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthorizationInterceptorService,
+      multi: true,
+    },
   ],
   imports: [HttpClientModule, MatSnackBarModule],
 })
-export class CoreModule {
-  constructor(@Optional() @SkipSelf() core: CoreModule) {
-    if (core) {
-      throw new Error('You should import core module only in the root module');
-    }
-  }
-}
+export class CoreModule {}

@@ -1,0 +1,14 @@
+<section>
+  <div class="container">
+    <div class="body">
+      <p>{{ loginService.user?.name }}</p>
+
+      <mat-chip-list>
+        <mat-chip *ngIf="isMyPage" color="primary" selected>My page</mat-chip>
+        <mat-chip color="accent" selected>{{
+          userRightsService.right | titlecase
+        }}</mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+</section>

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+
 import Uppy from '@uppy/core';
 import DropTarget from '@uppy/drop-target';
 import XHRUpload from '@uppy/xhr-upload';
 import Dashboard from '@uppy/dashboard';
+
 import { environment } from '@environment/environment';
+
 import { UppyService } from '@features/user/services/uppy/uppy.service';
 
 @Component({
@@ -14,7 +17,7 @@ import { UppyService } from '@features/user/services/uppy/uppy.service';
 export class UppyComponent implements OnInit {
   constructor(private uppyService: UppyService) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     const uppy = new Uppy({
       autoProceed: false,
       allowMultipleUploads: false,

@@ -1,21 +1,23 @@
 <mat-toolbar class="header" color="primary">
-  <img class="logo" src="./favicon.ico" alt="logo" />
+  <a class="logo" routerLink="/">
+    <img src="./favicon.ico" alt="logo" />
+  </a>
+
   <nav class="nav" [class.active]="routesService.menuActivated">
     <button (click)="routesService.toggleMenu()" class="menu" mat-icon-button>
       <mat-icon>menu</mat-icon>
     </button>
-    <mat-list class="list" role="list">
-      <mat-list-item
-        *ngFor="let route of routesService.routes"
-        class="item"
-        role="listitem"
-        ><a (click)="route.handler($event)" mat-button [href]="route.route">
+
+    <mat-list class="list">
+      <mat-list-item *ngFor="let route of routesService.routes" class="item">
+        <a
+          (click)="route.handler($event)"
+          mat-button
+          [routerLink]="route.route"
+        >
           {{ route.title | titlecase }}
-        </a></mat-list-item
-      >
-      <!--      <mat-list-item class="item" role="listitem"-->
-      <!--        ><button mat-flat-button color="accent">button</button></mat-list-item-->
-      <!--      >-->
+        </a>
+      </mat-list-item>
     </mat-list>
   </nav>
 </mat-toolbar>

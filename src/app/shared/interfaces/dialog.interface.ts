@@ -1,4 +1,4 @@
-import { ButtonActionInterface } from '@shared/interfaces/button-action.interface';
+import { ButtonActionInterface } from './button-action.interface';
 
 export interface DialogInterface {
   title?: string;

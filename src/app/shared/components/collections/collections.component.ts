@@ -1,14 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { CollectionInterface } from '@shared/interfaces/collection.interface';
+import { Component, Input } from '@angular/core';
+import { CollectionInterface } from '../../interfaces/collection.interface';
 
 @Component({
   selector: 'app-collections',
   templateUrl: './collections.component.html',
   styleUrls: ['./collections.component.scss'],
 })
-export class CollectionsComponent implements OnInit {
-  @Input() collections!: CollectionInterface[];
-  constructor() {}
-
-  ngOnInit(): void {}
+export class CollectionsComponent {
+  @Input() collections: CollectionInterface[] = [];
 }

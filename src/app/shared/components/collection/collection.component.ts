@@ -1,15 +1,16 @@
 import {
   Component,
-  OnInit,
   Input,
-  ViewChild,
+  OnInit,
   TemplateRef,
+  ViewChild,
 } from '@angular/core';
-import { CollectionInterface } from '@shared/interfaces/collection.interface';
-import { CollectionsService } from '@core/services/collections/collections.service';
+import { CollectionsService } from '@core/services/collections.service';
 import { DialogService } from '@core/services/dialog.service';
+import { SnackBarService } from '@core/services/snack-bar.service';
+
+import { CollectionInterface } from '@shared/interfaces/collection.interface';
 import { DialogInterface } from '@shared/interfaces/dialog.interface';
-import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-collection',
@@ -18,8 +19,10 @@ import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 })
 export class CollectionComponent implements OnInit {
   @ViewChild('dialogComponent') dialogComponent!: TemplateRef<any>;
+
   @Input()
   collection!: CollectionInterface;
+
   image: string = '';
   dialog: DialogInterface = {
     title: 'Confirm removing',
@@ -36,12 +39,12 @@ export class CollectionComponent implements OnInit {
   constructor(
     private collectionsService: CollectionsService,
     private dialogService: DialogService,
-    private snackbarService: SnackbarService
+    private snackBarService: SnackBarService
   ) {
     this.image = this.collectionsService.thumbnail;
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.collectionsService
       .getImage(this.collection.id)
       .subscribe((data) => (this.image = <string>data.msg));
@@ -53,13 +56,10 @@ export class CollectionComponent implements OnInit {
 
   remove() {
     this.collectionsService
-      .removeCollection(this.collection.id, { name: 'user' })
+      .removeCollection(this.collection.id)
       .subscribe(() => {
-        this.collectionsService.updaterCollections.next();
-        this.snackbarService.openSnackbar('Succesfully deleted!', {
-          horizontal: 'end',
-          vertical: 'bottom',
-        });
+        this.collectionsService.updaterCollections$.next();
+        this.snackBarService.openSnackBar('Successfully deleted!');
       });
   }
 }

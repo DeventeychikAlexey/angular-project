@@ -1,0 +1,21 @@
+<section>
+  <div class="container">
+    <h2 class="text-center">Collections</h2>
+
+    <app-filter
+      label="Find by title"
+      field="name"
+      [list]="collections"
+      (listChange)="filteredCollections = $event"
+    ></app-filter>
+
+    <app-collections
+      *ngIf="filteredCollections.length > 0; else NoCollections"
+      [collections]="filteredCollections"
+    ></app-collections>
+
+    <ng-template #NoCollections>
+      <p class="text-center">No collections :(</p>
+    </ng-template>
+  </div>
+</section>
