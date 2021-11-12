@@ -27,6 +27,12 @@ export class CollectionsService {
     );
   }
 
+  getCollections(): Observable<ResponseInterface> {
+    return this.http.get<ResponseInterface>(
+      environment.baseURI + 'back/collections'
+    );
+  }
+
   // createCollection(
   //   body: CreateCollectionBodyInterface
   // ): Observable<ResponseInterface> {

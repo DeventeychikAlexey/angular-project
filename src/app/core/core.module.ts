@@ -13,6 +13,7 @@ import { RegisterService } from '@core/services/register.service';
 import { RightsService } from '@core/services/rights.service';
 import { PagesService } from '@core/services/pages.service';
 import { UppyService } from '@core/services/uppy.service';
+import { ImagesService } from '@core/services/images.service';
 
 @NgModule({
   providers: [
@@ -26,6 +27,7 @@ import { UppyService } from '@core/services/uppy.service';
     RightsService,
     PagesService,
     UppyService,
+    ImagesService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizationInterceptorService,

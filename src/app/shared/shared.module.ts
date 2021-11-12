@@ -26,6 +26,7 @@ import { ProgressBarComponent } from '@shared/components/progress-bar/progress-b
 import { FormFieldTextareaComponent } from '@shared/components/form-field-textarea/form-field-textarea.component';
 import { FormFieldSelectComponent } from './components/form-field-select/form-field-select.component';
 import { UppyComponent } from '@shared/components/uppy/uppy.component';
+import { CollectionsSectionComponent } from './components/collections-section/collections-section.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { UppyComponent } from '@shared/components/uppy/uppy.component';
     FormFieldTextareaComponent,
     FormFieldSelectComponent,
     UppyComponent,
+    CollectionsSectionComponent,
   ],
   exports: [
     HeaderComponent,
@@ -54,6 +56,7 @@ import { UppyComponent } from '@shared/components/uppy/uppy.component';
     FormFieldSelectComponent,
     CollectionComponent,
     UppyComponent,
+    CollectionsSectionComponent,
   ],
   imports: [
     CommonModule,

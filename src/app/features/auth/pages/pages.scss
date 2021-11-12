@@ -1,3 +1,14 @@
+:host {
+  flex-grow: 1;
+
+  display: flex;
+  align-items: center;
+}
+
+section {
+  flex-grow: 1;
+}
+
 .body {
   height: 100%;
   display: flex;

@@ -8,6 +8,7 @@ import { CoreModule } from '@core/core.module';
 import { AuthModule } from '@features/auth/auth.module';
 import { UserModule } from '@features/user/user.module';
 import { SharedModule } from '@shared/shared.module';
+import { GuestModule } from '@features/guest/guest.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +19,7 @@ import { SharedModule } from '@shared/shared.module';
     CoreModule,
     AuthModule,
     UserModule,
+    GuestModule,
     SharedModule,
   ],
   bootstrap: [AppComponent],

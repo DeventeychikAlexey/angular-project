@@ -1,0 +1,9 @@
+<section>
+  <div class="container">
+    <ng-container *ngIf="collections.length > 0">
+      <h2 class="section-title text-center">{{ title }}</h2>
+
+      <app-collections [collections]="collections"></app-collections>
+    </ng-container>
+  </div>
+</section>
