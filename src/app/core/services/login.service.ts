@@ -3,16 +3,17 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '@environment/environment';
 
-import { UserInterface } from '@shared/interfaces/user.interface';
+// import { UserInterface } from '@shared/interfaces/user.interface';
 import { ResponseInterface } from '@shared/interfaces/response.interface';
 import { LoginBodyInterface } from '@shared/interfaces/login-body.interface';
 
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
+import { switchMap, map, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class LoginService {
   private token = '';
-  user: UserInterface | null = null;
+  user: any | null = null;
   needRoutesUpdate$ = new Subject();
 
   constructor(private http: HttpClient) {
@@ -27,37 +28,48 @@ export class LoginService {
     const token = localStorage.getItem('token');
 
     if (token) {
-      this.updateToken(token);
-      this.updateUser().subscribe();
+      of(token)
+        .pipe(
+          switchMap((token) => {
+            return of(this.updateToken(token));
+          }),
+          switchMap(() => {
+            return this.updateUser();
+          })
+        )
+        .subscribe();
     }
   }
 
   updateToken(token: string) {
+    localStorage.setItem('token', token);
+
     this.token = token;
   }
 
-  private uploadUser(): Observable<ResponseInterface> {
+  uploadUser(): Observable<ResponseInterface> {
     return this.http.post<ResponseInterface>(
       environment.baseURI + 'back/auth/',
       {}
     );
   }
 
-  updateUser(): Observable<ResponseInterface> {
-    return new Observable((subscriber) => {
-      this.uploadUser().subscribe(
-        (resp) => {
-          this.user = resp.msg as UserInterface;
-        },
-        () => {
-          this.logout();
-        },
-        () => {
-          this.needRoutesUpdate$.next();
-          subscriber.complete();
-        }
-      );
-    });
+  updateUser() {
+    return this.uploadUser().pipe(
+      map((resp) => resp.msg),
+      switchMap((user) => {
+        this.user = user;
+
+        this.needRoutesUpdate$.next();
+
+        return of();
+      }),
+      catchError(() => {
+        this.logout();
+
+        return of();
+      })
+    );
   }
 
   private removeToken() {

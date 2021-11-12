@@ -1,84 +1,110 @@
-.header {
+:host::ng-deep .header {
   height: 70px;
-  display: flex;
-  align-items: center;
+
   position: relative;
   z-index: 1000;
-  &:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: inherit;
-    z-index: 2;
-  }
 
-  .logo {
+  .body {
     display: flex;
-    align-items: center;
-    position: relative;
-    z-index: 3;
-    img {
-      object-fit: contain;
-    }
-  }
+    justify-content: space-between;
 
-  .nav {
-    margin-left: auto;
+    height: 100%;
 
-    .menu {
-      position: relative;
-      display: none;
-      z-index: 3;
-    }
-
-    .list {
+    .logo {
       display: flex;
-      margin: 0 !important;
-      padding: 0 !important;
-      position: relative;
-      z-index: 4;
-      .item {
-        height: auto !important;
-        color: #ffffff;
-        a {
-        }
+
+      align-items: center;
+
+      img {
+        object-fit: contain;
       }
     }
-  }
-  @media (max-width: 768px) {
+
     .nav {
+      display: flex;
+      align-items: center;
+
       .menu {
-        display: block;
+        display: none;
       }
+
       .list {
-        position: absolute;
-        flex-direction: column;
-        align-items: center;
-        padding: 70px 0px 10px 0px !important;
-        transition: 0.3s;
-        top: 0;
-        left: 100vw;
-        width: 100vw;
-        height: 100vh;
-        background-color: #303;
-        overflow-x: hidden;
-        overflow-y: auto;
-        z-index: 1;
+        display: flex;
+
+        padding: 0;
+
         .item {
-          display: flex;
-          justify-content: flex-end;
-          margin: 5px 0px;
-          & * {
-            font-size: 24px !important;
+          color: #ffffff;
+
+          a {
+            &.active {
+              background-color: rgba(0, 0, 0, 0.3);
+            }
           }
         }
       }
-      &.active {
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  :host::ng-deep .header {
+    position: relative;
+
+    &::before {
+      content: "";
+
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 3;
+
+      background-color: inherit;
+    }
+
+    .body {
+      .logo {
+        position: relative;
+        z-index: 3;
+      }
+
+      .nav {
+        .menu {
+          display: block;
+
+          position: relative;
+          z-index: 3;
+        }
+
         .list {
-          left: 0;
+          position: absolute;
+          top: 0;
+          left: 100vw;
+          z-index: 2;
+
+          width: 100vw;
+          height: 100vh;
+
+          flex-direction: column;
+
+          background-color: #1b5d9b;
+
+          padding: 70px 0 0 0;
+
+          overflow: auto;
+
+          .item {
+            display: flex;
+            justify-content: flex-end;
+          }
+        }
+
+        &.active {
+          .list {
+            left: 0;
+          }
         }
       }
     }

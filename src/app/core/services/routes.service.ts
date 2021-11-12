@@ -27,10 +27,30 @@ export class RoutesService implements OnDestroy {
   }
 
   toggleMenu() {
-    this.menuActivated = !this.menuActivated;
+    if (this.menuActivated) {
+      this.closeMenu();
+    } else {
+      this.openMenu();
+    }
+  }
+
+  closeMenu() {
+    this.menuActivated = false;
+  }
+
+  openMenu() {
+    this.menuActivated = true;
   }
 
   private updateRoutes() {
+    let routes: RouteInterface[] = [
+      {
+        route: `/`,
+        title: 'Home',
+        handler: noop,
+      },
+    ];
+
     let loggedInRoutes: RouteInterface[];
 
     if (this.loginService.isLoggedIn) {
@@ -49,11 +69,11 @@ export class RoutesService implements OnDestroy {
     } else {
       loggedInRoutes = [
         { route: '/auth/register', title: 'Register', handler: noop },
-        { route: '/auth/login', title: 'Sign in', handler: noop },
+        { route: '/auth/login', title: 'Log in', handler: noop },
       ];
     }
 
-    this.routes = [...loggedInRoutes].reverse();
+    this.routes = [...loggedInRoutes, ...routes].reverse();
   }
 
   logout() {

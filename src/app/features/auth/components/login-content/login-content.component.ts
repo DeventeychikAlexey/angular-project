@@ -14,6 +14,9 @@ import { ColorsEnum } from '@shared/enums/colors.enum';
 import { FormErrorsEnum } from '@shared/enums/form-errors.enum';
 import { FormLoginErrorsEnum } from '@shared/enums/form-login-errors.enum';
 
+import { map, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+
 @Component({
   selector: 'app-login-content',
   templateUrl: './login-content.component.html',
@@ -80,30 +83,29 @@ export class LoginContentComponent implements OnInit {
 
     this.form.markAsPending();
 
-    this.loginService.login(this.form.value).subscribe(
-      (resp) => {
-        if (typeof resp.msg === 'string') {
-          const token = resp.msg;
-
-          localStorage.setItem('token', token);
-          this.loginService.updateToken(token);
-          this.loginService.updateUser().subscribe(
-            () => {},
-            () => {},
-            () => {
-              this.goToOwnPage();
-            }
-          );
+    this.loginService
+      .login(this.form.value)
+      .pipe(
+        map((resp) => resp.msg),
+        switchMap((token) => {
+          return of(this.loginService.updateToken(token));
+        }),
+        switchMap(() => {
+          return this.loginService.updateUser();
+        })
+      )
+      .subscribe(
+        () => {},
+        () => {
+          this.snackBarService.openSnackBar('Invalid data', {
+            panelClass: ColorsEnum.Error,
+          });
+          this.form.reset();
+        },
+        () => {
+          this.goToOwnPage();
         }
-      },
-      () => {
-        this.snackBarService.openSnackBar('Invalid data', {
-          panelClass: ColorsEnum.Error,
-        });
-
-        this.form.reset();
-      }
-    );
+      );
   }
 
   private goToOwnPage() {

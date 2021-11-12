@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RoutesRecognized } from '@angular/router';
+import { RoutesService } from '@core/services/routes.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import { Router, RoutesRecognized } from '@angular/router';
 export class AppComponent {
   showFooter = true;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, public routesService: RoutesService) {
     this.updateShowFooter();
   }
 

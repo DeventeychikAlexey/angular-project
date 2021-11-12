@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UserRightsService } from './user-rights.service';
+import { ImagesService } from './images.service';
 
-describe('UserRightsService', () => {
-  let service: UserRightsService;
+describe('ImagesService', () => {
+  let service: ImagesService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UserRightsService);
+    service = TestBed.inject(ImagesService);
   });
 
   it('should be created', () => {

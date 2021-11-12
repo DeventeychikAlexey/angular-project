@@ -11,6 +11,7 @@ import { SnackBarService } from '@core/services/snack-bar.service';
 
 import { CollectionInterface } from '@shared/interfaces/collection.interface';
 import { DialogInterface } from '@shared/interfaces/dialog.interface';
+import { ImagesService } from '@core/services/images.service';
 
 @Component({
   selector: 'app-collection',
@@ -39,13 +40,14 @@ export class CollectionComponent implements OnInit {
   constructor(
     private collectionsService: CollectionsService,
     private dialogService: DialogService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private imagesService: ImagesService
   ) {
-    this.image = this.collectionsService.thumbnail;
+    this.image = this.imagesService.pathToLoadingImage;
   }
 
   ngOnInit() {
-    this.collectionsService
+    this.imagesService
       .getImage(this.collection.id)
       .subscribe((data) => (this.image = <string>data.msg));
   }

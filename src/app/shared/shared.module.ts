@@ -25,6 +25,7 @@ import { ButtonComponent } from '@shared/components/button/button.component';
 import { ProgressBarComponent } from '@shared/components/progress-bar/progress-bar.component';
 import { FormFieldTextareaComponent } from '@shared/components/form-field-textarea/form-field-textarea.component';
 import { FormFieldSelectComponent } from './components/form-field-select/form-field-select.component';
+import { UppyComponent } from '@shared/components/uppy/uppy.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { FormFieldSelectComponent } from './components/form-field-select/form-fi
     ProgressBarComponent,
     FormFieldTextareaComponent,
     FormFieldSelectComponent,
+    UppyComponent,
   ],
   exports: [
     HeaderComponent,
@@ -51,6 +53,7 @@ import { FormFieldSelectComponent } from './components/form-field-select/form-fi
     FormFieldTextareaComponent,
     FormFieldSelectComponent,
     CollectionComponent,
+    UppyComponent,
   ],
   imports: [
     CommonModule,

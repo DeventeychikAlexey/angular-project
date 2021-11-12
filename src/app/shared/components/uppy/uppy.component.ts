@@ -6,8 +6,7 @@ import XHRUpload from '@uppy/xhr-upload';
 import Dashboard from '@uppy/dashboard';
 
 import { environment } from '@environment/environment';
-
-import { UppyService } from '@features/user/services/uppy/uppy.service';
+import { UppyService } from '@core/services/uppy.service';
 
 @Component({
   selector: 'app-uppy',

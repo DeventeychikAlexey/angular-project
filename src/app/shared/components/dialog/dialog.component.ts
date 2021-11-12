@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ButtonActionInterface } from '../../interfaces/button-action.interface';
+import { DialogActionInterface } from '@shared/interfaces/dialog-action.interface';
 
 @Component({
   selector: 'app-dialog',
@@ -10,5 +10,5 @@ export class DialogComponent {
   @Input() title = '';
   @Input() text = '';
   @Input() closeButton = true;
-  @Input() actions: ButtonActionInterface[] = [];
+  @Input() actions: DialogActionInterface[] = [];
 }

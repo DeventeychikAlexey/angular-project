@@ -10,8 +10,9 @@ import { DialogService } from '@core/services/dialog.service';
 import { AuthorizationInterceptorService } from '@core/services/authorization-interceptor.service';
 import { LoginService } from '@core/services/login.service';
 import { RegisterService } from '@core/services/register.service';
-import { UserRightsService } from '@core/services/user-rights.service';
+import { RightsService } from '@core/services/rights.service';
 import { PagesService } from '@core/services/pages.service';
+import { UppyService } from '@core/services/uppy.service';
 
 @NgModule({
   providers: [
@@ -22,8 +23,9 @@ import { PagesService } from '@core/services/pages.service';
     DialogService,
     LoginService,
     RegisterService,
-    UserRightsService,
+    RightsService,
     PagesService,
+    UppyService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizationInterceptorService,

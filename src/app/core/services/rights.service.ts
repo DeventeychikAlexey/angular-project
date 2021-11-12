@@ -1,22 +1,24 @@
 import { Injectable } from '@angular/core';
 import { LoginService } from '@core/services/login.service';
-import { RightsEnum } from '@shared/enums/rights.enum';
+import { RightsNameEnum } from '@shared/enums/rights-name.enum';
 import { RightsIdEnum } from '@shared/enums/rights-id.enum';
 
 @Injectable()
-export class UserRightsService {
+export class RightsService {
   constructor(private loginService: LoginService) {}
 
-  get right() {
+  get rightName() {
+    let rightName = '';
+
     if (this.loginService.user?.id_right === RightsIdEnum.Developer) {
-      return RightsEnum.Developer;
+      rightName = RightsNameEnum.Developer;
     } else if (this.loginService.user?.id_right === RightsIdEnum.Admin) {
-      return RightsEnum.Admin;
+      rightName = RightsNameEnum.Admin;
     } else if (this.loginService.user?.id_right === RightsIdEnum.User) {
-      return RightsEnum.User;
+      rightName = RightsNameEnum.User;
     }
 
-    return '';
+    return rightName;
   }
 
   get userOrAdmin() {
@@ -24,13 +26,13 @@ export class UserRightsService {
       this.loginService.user?.id_right === RightsIdEnum.Admin ||
       this.loginService.user?.id_right === RightsIdEnum.Developer
     ) {
-      return RightsEnum.Admin;
+      return RightsNameEnum.Admin;
     }
 
-    return RightsEnum.User;
+    return RightsNameEnum.User;
   }
 
-  get isAdminRights() {
+  get isAdmin() {
     if (
       this.loginService.user?.id_right === RightsIdEnum.Admin ||
       this.loginService.user?.id_right === RightsIdEnum.Developer

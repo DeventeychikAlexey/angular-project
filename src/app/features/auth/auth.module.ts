@@ -15,7 +15,12 @@ import { RegisterComponent } from './pages/register/register.component';
 import { RegisterContentComponent } from './components/register-content/register-content.component';
 
 @NgModule({
-  declarations: [LoginComponent, LoginContentComponent, RegisterComponent, RegisterContentComponent],
+  declarations: [
+    LoginComponent,
+    LoginContentComponent,
+    RegisterComponent,
+    RegisterContentComponent,
+  ],
   imports: [
     CommonModule,
     AuthRoutingModule,
