@@ -3,7 +3,7 @@ import { CollectionInterface } from '@shared/interfaces/collection.interface';
 import { CollectionFilterInterface } from '@shared/interfaces/collection-filter.interface';
 
 @Component({
-  selector: 'app-collection-section',
+  selector: 'app-collections-section',
   templateUrl: './collections-section.component.html',
   styleUrls: ['./collections-section.component.scss'],
 })

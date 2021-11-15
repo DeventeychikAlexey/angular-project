@@ -9,6 +9,10 @@ import { CollectionSectionCardFormComponent } from './components/collection-sect
 import { CollectionSectionCardFormCreateComponent } from './components/collection-section-card-form-create/collection-section-card-form-create.component';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CollectionPageComponent } from './pages/collection-page/collection-page.component';
+import { CollectionEditingPageComponent } from './pages/collection-editing-page/collection-editing-page.component';
+import { CollectionSectionComponent } from './components/collection-section/collection-section.component';
+import { CollectionSectionCardFormEditComponent } from './components/collection-section-card-form-edit/collection-section-card-form-edit.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +20,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     UserHeaderComponent,
     CollectionSectionCardFormComponent,
     CollectionSectionCardFormCreateComponent,
+    CollectionPageComponent,
+    CollectionEditingPageComponent,
+    CollectionSectionComponent,
+    CollectionSectionCardFormEditComponent,
   ],
   imports: [
     CommonModule,
