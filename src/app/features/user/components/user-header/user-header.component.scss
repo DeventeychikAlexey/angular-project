@@ -1,0 +1,29 @@
+section {
+  height: auto;
+  padding: 10px 0px;
+}
+
+.body {
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+}
+
+p {
+  padding: 0;
+  margin: 10px;
+
+  font-size: 20px;
+
+  color: #ffffff;
+
+  span {
+    cursor: pointer;
+    font-size: inherit;
+  }
+
+  strong {
+    font-size: 20px;
+  }
+}

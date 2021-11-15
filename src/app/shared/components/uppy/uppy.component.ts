@@ -39,7 +39,7 @@ export class UppyComponent implements OnInit {
     });
 
     uppy.use(XHRUpload, {
-      endpoint: `${environment.baseURI}back/user/image`,
+      endpoint: `${environment.baseURI}user/image`,
       method: 'post',
       formData: true,
       fieldName: 'image',

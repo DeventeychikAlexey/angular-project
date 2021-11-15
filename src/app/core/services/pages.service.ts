@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import { LoginService } from '@core/services/login.service';
+import { UserInterface } from '@shared/interfaces/user.interface';
 
 @Injectable()
 export class PagesService {
-  constructor(private loginService: LoginService) {}
-
-  isMyPage(idPage: number) {
-    if (this.loginService.user?.id === idPage) {
+  isMyPage(user: UserInterface, idPage: number) {
+    if (user.id === idPage) {
       return true;
     }
 

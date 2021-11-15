@@ -4,10 +4,10 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '@environment/environment';
 
 import { ResponseInterface } from '@shared/interfaces/response.interface';
-// import { CreateCollectionBodyInterface } from '@shared/interfaces/create-collection-body.interface';
 
 import { Observable, Subject } from 'rxjs';
 import { RightsService } from '@core/services/rights.service';
+import { CollectionFormBodyInterface } from '@shared/interfaces/collection-form-body.interface';
 
 @Injectable()
 export class CollectionsService {
@@ -17,47 +17,47 @@ export class CollectionsService {
 
   getCollectionById(id: number): Observable<ResponseInterface> {
     return this.http.get<ResponseInterface>(
-      environment.baseURI + 'back/collection/' + id
+      environment.baseURI + 'collection/' + id
     );
   }
 
   getUserCollections(id: number): Observable<ResponseInterface> {
     return this.http.get<ResponseInterface>(
-      environment.baseURI + 'back/collections/' + id
+      environment.baseURI + 'collections/' + id
     );
   }
 
   getCollections(): Observable<ResponseInterface> {
     return this.http.get<ResponseInterface>(
-      environment.baseURI + 'back/collections'
+      environment.baseURI + 'collections'
     );
   }
 
-  // createCollection(
-  //   body: CreateCollectionBodyInterface
-  // ): Observable<ResponseInterface> {
-  //   return this.http.post<ResponseInterface>(
-  //     environment.baseURI + 'back/user/collections',
-  //     body
-  //   );
-  // }
-  //
-  // editCollection(
-  //   body: CreateCollectionBodyInterface
-  // ): Observable<ResponseInterface> {
-  //   return this.http.put<ResponseInterface>(
-  //     environment.baseURI + 'back/user/collections',
-  //     body
-  //   );
-  // }
+  createCollection(
+    id: number,
+    body: CollectionFormBodyInterface
+  ): Observable<ResponseInterface> {
+    return this.http.post<ResponseInterface>(
+      environment.baseURI +
+        this.rightsService.userOrAdmin +
+        '/collections/' +
+        id,
+      body
+    );
+  }
+
+  editCollection(
+    body: CollectionFormBodyInterface
+  ): Observable<ResponseInterface> {
+    return this.http.put<ResponseInterface>(
+      environment.baseURI + 'user/collections',
+      body
+    );
+  }
 
   removeCollection(id: number): Observable<ResponseInterface> {
     return this.http.delete<ResponseInterface>(
-      environment.baseURI +
-        'back/' +
-        this.rightsService.userOrAdmin +
-        '/collection-page/' +
-        id
+      environment.baseURI + this.rightsService.userOrAdmin + '/collection/' + id
     );
   }
 }

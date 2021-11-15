@@ -6,13 +6,13 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ImagesService {
-  readonly pathToLoadingImage = '';
+  readonly pathToLoadingImage = './assets/images/load.gif';
 
   constructor(private http: HttpClient) {}
 
   getImage(id: number): Observable<ResponseInterface> {
     return this.http.get<ResponseInterface>(
-      environment.baseURI + 'back/image/' + id
+      environment.baseURI + 'image/' + id
     );
   }
 }

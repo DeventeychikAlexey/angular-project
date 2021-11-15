@@ -24,7 +24,9 @@ export class CollectionComponent implements OnInit {
   @Input()
   collection!: CollectionInterface;
 
-  image: string = '';
+  image = '';
+  isImageLoading = true;
+
   dialog: DialogInterface = {
     title: 'Confirm removing',
     text: 'Are you sure?',
@@ -47,9 +49,11 @@ export class CollectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.imagesService
-      .getImage(this.collection.id)
-      .subscribe((data) => (this.image = <string>data.msg));
+    this.imagesService.getImage(this.collection.id).subscribe((data) => {
+      this.image = <string>data.msg;
+
+      this.isImageLoading = false;
+    });
   }
 
   confirmRemove() {

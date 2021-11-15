@@ -14,7 +14,7 @@ export class RegisterService {
 
   register(ops: RegisterBodyInterface): Observable<ResponseInterface> {
     return this.http.post<ResponseInterface>(
-      environment.baseURI + 'back/auth/register',
+      environment.baseURI + 'auth/register',
       ops
     );
   }

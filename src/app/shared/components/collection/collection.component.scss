@@ -18,6 +18,11 @@ a {
   background-color: #c0bfbf;
 }
 
+.contain {
+  object-fit: contain;
+  background-color: white;
+}
+
 .buttons {
   display: flex;
 

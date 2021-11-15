@@ -3,7 +3,7 @@
 @import "normalize.css";
 @import "uppy.scss";
 
-$primary-color: mat.get-color-from-palette(mat.$blue-palette, 300);
+$primary-color: mat.get-color-from-palette(mat.$indigo-palette, 500);
 $info-color: mat.get-color-from-palette(mat.$indigo-palette, 300);
 $success-color: mat.get-color-from-palette(mat.$green-palette, 300);
 $warn-color: mat.get-color-from-palette(mat.$yellow-palette, 300);
@@ -24,7 +24,7 @@ $error-color: mat.get-color-from-palette(mat.$red-palette, 300);
   margin: 0 auto;
 }
 
-section {
+.section {
   height: 100%;
   padding: 20px 0px;
 }
@@ -40,18 +40,38 @@ section {
   background-color: $primary-color;
 }
 
+.primary-text {
+  color: $primary-color;
+}
+
 .info {
   background-color: $info-color;
+}
+
+.info-text {
+  color: $info-color;
 }
 
 .success {
   background-color: $success-color;
 }
 
+.success-text {
+  color: $success-color;
+}
+
 .warn {
   background-color: $warn-color;
 }
 
+.warn-text {
+  color: $warn-color;
+}
+
 .error {
   background-color: $error-color;
+}
+
+.error-text {
+  color: $error-color;
 }

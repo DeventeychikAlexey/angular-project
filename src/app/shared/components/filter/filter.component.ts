@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { CollectionFilterInterface } from '@shared/interfaces/collection-filter.interface';
 
 @Component({
   selector: 'app-filter',
@@ -39,11 +40,11 @@ export class FilterComponent<T> implements OnInit {
       ) as [string, unknown];
 
       if (!this.ignoreCase && typeof field[1] === 'string') {
-        return field[1].includes(this.filterValue.value.trim());
+        return field[1].includes(this.filterValue.value?.trim() || '');
       } else if (this.ignoreCase && typeof field[1] === 'string') {
         return field[1]
           .toLowerCase()
-          .includes(this.filterValue.value.trim().toLowerCase());
+          .includes(this.filterValue.value?.trim().toLowerCase() || '');
       }
 
       return field[1] == this.filterValue;

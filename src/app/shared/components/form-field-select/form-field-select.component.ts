@@ -12,5 +12,5 @@ export class FormFieldSelectComponent {
   @Input() control!: AbstractControl;
   @Input() appearance = 'outline';
   @Input() required = false;
-  @Input() options = [];
+  @Input() list = [];
 }

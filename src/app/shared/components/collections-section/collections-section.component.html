@@ -1,9 +1,25 @@
-<section>
+<section class="section">
   <div class="container">
-    <ng-container *ngIf="collections.length > 0">
-      <h2 class="section-title text-center">{{ title }}</h2>
+    <h2 class="section-title text-center">{{ title }}</h2>
 
-      <app-collections [collections]="collections"></app-collections>
-    </ng-container>
+    <app-filter
+      *ngIf="filter"
+      [field]="filter.field"
+      [label]="filter.label"
+      [ignoreCase]="filter.ignoreCase"
+      [list]="collections"
+      (listChange)="filteredCollections = $event"
+    ></app-filter>
+
+    <app-collections
+      *ngIf="filteredCollections?.length > 0; else noCollection"
+      [collections]="filteredCollections"
+    ></app-collections>
+
+    <ng-template #noCollection>
+      <br />
+
+      <p class="text-center">No collection</p>
+    </ng-template>
   </div>
 </section>

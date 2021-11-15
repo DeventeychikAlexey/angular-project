@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '@environment/environment';
 
-// import { UserInterface } from '@shared/interfaces/user.interface';
 import { ResponseInterface } from '@shared/interfaces/response.interface';
 import { LoginBodyInterface } from '@shared/interfaces/login-body.interface';
 
@@ -48,10 +47,7 @@ export class LoginService {
   }
 
   uploadUser(): Observable<ResponseInterface> {
-    return this.http.post<ResponseInterface>(
-      environment.baseURI + 'back/auth/',
-      {}
-    );
+    return this.http.post<ResponseInterface>(environment.baseURI + 'auth/', {});
   }
 
   updateUser() {
@@ -90,7 +86,7 @@ export class LoginService {
 
   login(ops: LoginBodyInterface): Observable<ResponseInterface> {
     return this.http.post<ResponseInterface>(
-      environment.baseURI + 'back/auth/login',
+      environment.baseURI + 'auth/login',
       ops
     );
   }

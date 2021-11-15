@@ -9,6 +9,7 @@
     <img
       [routerLink]="'/collection/' + collection.id"
       class="img"
+      [class.contain]="isImageLoading"
       mat-card-image
       [src]="image"
       [alt]="'collection-' + collection.id + '-image'"
