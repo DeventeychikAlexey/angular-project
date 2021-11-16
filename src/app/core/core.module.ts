@@ -11,7 +11,6 @@ import { AuthorizationInterceptorService } from '@core/services/authorization-in
 import { LoginService } from '@core/services/login.service';
 import { RegisterService } from '@core/services/register.service';
 import { RightsService } from '@core/services/rights.service';
-import { PagesService } from '@core/services/pages.service';
 import { UppyService } from '@core/services/uppy.service';
 import { ImagesService } from '@core/services/images.service';
 import { UsersService } from '@core/services/users.service';
@@ -26,7 +25,6 @@ import { UsersService } from '@core/services/users.service';
     LoginService,
     RegisterService,
     RightsService,
-    PagesService,
     UppyService,
     ImagesService,
     UsersService,

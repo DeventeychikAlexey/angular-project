@@ -8,7 +8,6 @@ import { CollectionsService } from '@core/services/collections.service';
 import { map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { RightsService } from '@core/services/rights.service';
-import { PagesService } from '@core/services/pages.service';
 
 @Component({
   selector: 'app-collection-editing-page',
@@ -24,8 +23,7 @@ export class CollectionEditingPageComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private usersService: UsersService,
     private collectionsService: CollectionsService,
-    private rightsService: RightsService,
-    private pagesService: PagesService
+    private rightsService: RightsService
   ) {}
 
   ngOnInit() {

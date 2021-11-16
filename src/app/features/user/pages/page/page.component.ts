@@ -7,7 +7,6 @@ import { CollectionInterface } from '@shared/interfaces/collection.interface';
 import { CollectionsService } from '@core/services/collections.service';
 import { CollectionFilterInterface } from '@shared/interfaces/collection-filter.interface';
 import { RightsService } from '@core/services/rights.service';
-import { PagesService } from '@core/services/pages.service';
 import { Subscription } from 'rxjs';
 import { LoginService } from '@core/services/login.service';
 
@@ -32,7 +31,6 @@ export class PageComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private collectionsService: CollectionsService,
     private rightsService: RightsService,
-    private pagesService: PagesService,
     private loginService: LoginService
   ) {}
 
@@ -41,10 +39,7 @@ export class PageComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap((params) => {
           setTimeout(() => {
-            this.isMyPage = this.pagesService.isMyPage(
-              this.loginService.user,
-              +params.id
-            );
+            this.isMyPage = this.loginService.user.id === params.id;
           }, 0);
 
           return this.usersService.getUserById(+params.id);
