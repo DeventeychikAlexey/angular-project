@@ -5,14 +5,19 @@ import { CollectionsService } from '@core/services/collections.service';
 import { CollectionFormBodyInterface } from '@shared/interfaces/collection-form-body.interface';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { UppyService } from '@core/services/uppy.service';
+import { CollectionInterface } from '@shared/interfaces/collection.interface';
+import { ResponseInterface } from '@shared/interfaces/response.interface';
 
 @Component({
   selector: 'app-collection-section-card-form-edit',
   templateUrl: './collection-section-card-form-edit.component.html',
   styleUrls: ['./collection-section-card-form-edit.component.scss'],
+  providers: [UppyService],
 })
 export class CollectionSectionCardFormEditComponent {
   @Input() user!: UserInterface;
+  @Input() collection!: CollectionInterface;
 
   error = {
     message: 'Editing error',
@@ -30,9 +35,9 @@ export class CollectionSectionCardFormEditComponent {
 
   constructor(private collectionsService: CollectionsService) {}
 
-  submit(body: CollectionFormBodyInterface): Observable<any> {
+  submit(body: CollectionFormBodyInterface): Observable<ResponseInterface> {
     return this.collectionsService
-      .createCollection(this.user.id, body)
+      .editCollection(this.collection.id, body)
       .pipe(map((resp) => resp.msg));
   }
 }

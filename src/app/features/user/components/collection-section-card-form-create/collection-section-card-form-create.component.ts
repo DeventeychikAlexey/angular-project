@@ -5,11 +5,14 @@ import { CollectionsService } from '@core/services/collections.service';
 import { map } from 'rxjs/operators';
 import { ColorsEnum } from '@shared/enums/colors.enum';
 import { UserInterface } from '@shared/interfaces/user.interface';
+import { UppyService } from '@core/services/uppy.service';
+import { ResponseInterface } from '@shared/interfaces/response.interface';
 
 @Component({
   selector: 'app-collection-section-card-form-create',
   templateUrl: './collection-section-card-form-create.component.html',
   styleUrls: ['./collection-section-card-form-create.component.scss'],
+  providers: [UppyService],
 })
 export class CollectionSectionCardFormCreateComponent {
   @Input() user!: UserInterface;
@@ -29,7 +32,7 @@ export class CollectionSectionCardFormCreateComponent {
 
   constructor(private collectionsService: CollectionsService) {}
 
-  submit(body: CollectionFormBodyInterface): Observable<any> {
+  submit(body: CollectionFormBodyInterface): Observable<ResponseInterface> {
     return this.collectionsService
       .createCollection(this.user.id, body)
       .pipe(map((resp) => resp.msg));

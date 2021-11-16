@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -15,6 +21,7 @@ import { CollectionFormBodyInterface } from '@shared/interfaces/collection-form-
 import { SnackBarBodyInterface } from '@shared/interfaces/snackBar-body.interface';
 import { ColorsEnum } from '@shared/enums/colors.enum';
 import { CollectionsService } from '@core/services/collections.service';
+import { CollectionInterface } from '@shared/interfaces/collection.interface';
 
 @Component({
   selector: 'app-collection-card-form-section',
@@ -22,9 +29,10 @@ import { CollectionsService } from '@core/services/collections.service';
   styleUrls: ['./collection-section-card-form.component.scss'],
   providers: [UppyService],
 })
-export class CollectionSectionCardFormComponent implements OnInit {
+export class CollectionSectionCardFormComponent implements OnInit, OnChanges {
   form!: FormGroup;
   topics: TopicInterface[] = [];
+  @Input() collection?: CollectionInterface;
 
   @Input() buttonText = 'submit';
   @Input() title = 'Title';
@@ -41,6 +49,12 @@ export class CollectionSectionCardFormComponent implements OnInit {
     private collectionsService: CollectionsService
   ) {}
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.collection) {
+      this.createForm();
+    }
+  }
+
   ngOnInit() {
     this.topicsService
       .getTopics()
@@ -54,9 +68,9 @@ export class CollectionSectionCardFormComponent implements OnInit {
 
   private createForm() {
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      id_topic: ['', [Validators.required]],
-      description: [''],
+      name: [this.collection?.name || '', [Validators.required]],
+      id_topic: [this.collection?.id_topic || '', [Validators.required]],
+      description: [this.collection?.description || ''],
     });
   }
 
@@ -104,20 +118,20 @@ export class CollectionSectionCardFormComponent implements OnInit {
       return;
     }
 
-    if (this.uppyService.uppy.getFiles().length === 0) {
-      this.snackBarService.openSnackBar('You have to select an image', {
-        panelClass: ColorsEnum.Error,
-      });
-
-      return;
-    }
-
-    this.form.markAsPending();
-
     if (
       this.isNeedImage ||
       (!this.isNeedImage && this.uppyService.uppy.getFiles().length > 0)
     ) {
+      if (this.uppyService.uppy.getFiles().length === 0) {
+        this.snackBarService.openSnackBar('You have to select an image', {
+          panelClass: ColorsEnum.Error,
+        });
+
+        return;
+      }
+
+      this.form.markAsPending();
+
       from(this.uppyService.uppy.upload())
         .pipe(
           map((result) => {
@@ -132,6 +146,10 @@ export class CollectionSectionCardFormComponent implements OnInit {
             );
           }),
           switchMap((body) => {
+            if (typeof body.image != 'string') {
+              throw new Error();
+            }
+
             return this.submit(body);
           })
         )
@@ -145,12 +163,9 @@ export class CollectionSectionCardFormComponent implements OnInit {
           }
         );
     } else {
-      const body: CollectionFormBodyInterface = Object.assign(
-        { image: '' },
-        this.form.value
-      );
+      this.form.markAsPending();
 
-      this.submit(body).subscribe(
+      this.submit(this.form.value).subscribe(
         () => {},
         () => {
           this.submitError();

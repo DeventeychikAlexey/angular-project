@@ -47,10 +47,14 @@ export class CollectionsService {
   }
 
   editCollection(
+    id: number,
     body: CollectionFormBodyInterface
   ): Observable<ResponseInterface> {
     return this.http.put<ResponseInterface>(
-      environment.baseURI + 'user/collections',
+      environment.baseURI +
+        this.rightsService.userOrAdmin +
+        '/collection/' +
+        id,
       body
     );
   }

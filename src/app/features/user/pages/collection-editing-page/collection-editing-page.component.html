@@ -5,4 +5,8 @@
   [collection]="collection"
 ></app-collection-section>
 
-<app-collection-section-card-form-edit></app-collection-section-card-form-edit>
+<app-collection-section-card-form-edit
+  *ngIf="collection && user"
+  [user]="user"
+  [collection]="collection"
+></app-collection-section-card-form-edit>
