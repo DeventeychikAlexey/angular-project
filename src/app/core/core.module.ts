@@ -14,6 +14,7 @@ import { RightsService } from '@core/services/rights.service';
 import { UppyService } from '@core/services/uppy.service';
 import { ImagesService } from '@core/services/images.service';
 import { UsersService } from '@core/services/users.service';
+import { ItemsService } from '@core/services/items.service';
 
 @NgModule({
   providers: [
@@ -27,6 +28,7 @@ import { UsersService } from '@core/services/users.service';
     RightsService,
     UppyService,
     ImagesService,
+    ItemsService,
     UsersService,
     {
       provide: HTTP_INTERCEPTORS,

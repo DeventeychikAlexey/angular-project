@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
-import { CollectionFilterInterface } from '@shared/interfaces/collection-filter.interface';
+import { FilterInterface } from '@shared/interfaces/filter.interface';
 
 @Component({
   selector: 'app-filter',

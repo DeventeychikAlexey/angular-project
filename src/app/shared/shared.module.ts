@@ -27,6 +27,10 @@ import { FormFieldTextareaComponent } from '@shared/components/form-field-textar
 import { FormFieldSelectComponent } from './components/form-field-select/form-field-select.component';
 import { UppyComponent } from '@shared/components/uppy/uppy.component';
 import { CollectionsSectionComponent } from './components/collections-section/collections-section.component';
+import { ItemComponent } from './components/item/item.component';
+import { ListSectionComponent } from './components/list-section/list-section.component';
+import { ItemsSectionComponent } from './components/items-section/items-section.component';
+import { ItemsComponent } from './components/items/items.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +47,10 @@ import { CollectionsSectionComponent } from './components/collections-section/co
     FormFieldSelectComponent,
     UppyComponent,
     CollectionsSectionComponent,
+    ItemComponent,
+    ListSectionComponent,
+    ItemsSectionComponent,
+    ItemsComponent,
   ],
   exports: [
     HeaderComponent,
@@ -57,6 +65,7 @@ import { CollectionsSectionComponent } from './components/collections-section/co
     CollectionComponent,
     UppyComponent,
     CollectionsSectionComponent,
+    ItemsSectionComponent,
   ],
   imports: [
     CommonModule,

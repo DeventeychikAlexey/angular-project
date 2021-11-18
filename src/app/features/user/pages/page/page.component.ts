@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { CollectionInterface } from '@shared/interfaces/collection.interface';
 import { CollectionsService } from '@core/services/collections.service';
-import { CollectionFilterInterface } from '@shared/interfaces/collection-filter.interface';
+import { FilterInterface } from '@shared/interfaces/filter.interface';
 import { RightsService } from '@core/services/rights.service';
 import { Subscription } from 'rxjs';
 import { LoginService } from '@core/services/login.service';
@@ -18,7 +18,7 @@ import { LoginService } from '@core/services/login.service';
 export class PageComponent implements OnInit, OnDestroy {
   user!: UserInterface;
   collections: CollectionInterface[] = [];
-  filter: CollectionFilterInterface = {
+  filter: FilterInterface = {
     label: 'Find collection',
     field: 'name',
     ignoreCase: true,

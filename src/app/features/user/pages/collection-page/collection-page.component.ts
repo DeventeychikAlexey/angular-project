@@ -8,6 +8,9 @@ import { CollectionsService } from '@core/services/collections.service';
 import { CollectionInterface } from '@shared/interfaces/collection.interface';
 import { UserInterface } from '@shared/interfaces/user.interface';
 import { RightsService } from '@core/services/rights.service';
+import { ItemsService } from '@core/services/items.service';
+import { ItemInterface } from '@shared/interfaces/item.interface';
+import { FilterInterface } from '@shared/interfaces/filter.interface';
 
 @Component({
   selector: 'app-collection-page',
@@ -17,13 +20,20 @@ import { RightsService } from '@core/services/rights.service';
 export class CollectionPageComponent implements OnInit {
   collection!: CollectionInterface;
   user!: UserInterface;
+  items: ItemInterface[] = [];
+  filter: FilterInterface = {
+    label: 'Find item',
+    field: 'name',
+    ignoreCase: true,
+  };
 
   constructor(
     public loginService: LoginService,
     private activatedRoute: ActivatedRoute,
     private usersService: UsersService,
     private collectionsService: CollectionsService,
-    private rightsService: RightsService
+    private rightsService: RightsService,
+    private itemsService: ItemsService
   ) {}
 
   ngOnInit() {
@@ -52,6 +62,12 @@ export class CollectionPageComponent implements OnInit {
             isRemovable: this.rightsService.isAdmin || isMyCollection,
             isChangeable: this.rightsService.isAdmin || isMyCollection,
           });
+
+          return this.itemsService.getCollectionItems(this.collection.id);
+        }),
+        map((resp) => resp.msg),
+        switchMap((items) => {
+          this.items = items;
 
           return of();
         })
