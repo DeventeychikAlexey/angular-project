@@ -7,11 +7,11 @@
 
   <mat-card-content class="collection-content">
     <img
-      [routerLink]="'/collection/' + collection.id"
+      [routerLink]="linkToCollectionPage"
       class="img"
       [class.contain]="isImageLoading"
       mat-card-image
-      [src]="image"
+      [src]="currentImage"
       [alt]="'collection-' + collection.id + '-image'"
     />
 
@@ -24,7 +24,7 @@
     <button
       *ngIf="collection.isViewable"
       mat-button
-      [routerLink]="'/collection/' + collection.id"
+      [routerLink]="linkToCollectionPage"
       color="primary"
     >
       View
@@ -34,7 +34,7 @@
       *ngIf="collection.isChangeable"
       mat-button
       color="accent"
-      [routerLink]="'/collection/edit/' + collection.id"
+      [routerLink]="linkToCollectionPageEditing"
     >
       Change
     </button>

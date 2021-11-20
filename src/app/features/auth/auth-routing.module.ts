@@ -5,7 +5,7 @@ import { LoginComponent } from '@features/auth/pages/login/login.component';
 
 const routes: Routes = [
   {
-    path: 'auth',
+    path: '',
     data: { showFooter: false },
     children: [
       {
@@ -21,7 +21,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 export class AuthRoutingModule {}

@@ -5,9 +5,9 @@ import { LoginService } from '@core/services/login.service';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '@core/services/users.service';
 import { CollectionsService } from '@core/services/collections.service';
-import { map, switchMap } from 'rxjs/operators';
-import { of, Subscription } from 'rxjs';
-import { RightsService } from '@core/services/rights.service';
+import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { OptionalService } from '@core/services/optional.service';
 
 @Component({
   selector: 'app-collection-editing-page',
@@ -17,63 +17,47 @@ import { RightsService } from '@core/services/rights.service';
 export class CollectionEditingPageComponent implements OnInit, OnDestroy {
   collection!: CollectionInterface;
   user!: UserInterface;
-  initializeSubscription!: Subscription;
+  updateCollectionsSubscription!: Subscription;
 
   constructor(
     public loginService: LoginService,
     private activatedRoute: ActivatedRoute,
     private usersService: UsersService,
     private collectionsService: CollectionsService,
-    private rightsService: RightsService
+    private optionalService: OptionalService
   ) {}
 
-  private initialize() {
-    this.activatedRoute.params
-      .pipe(
-        switchMap((params) => {
-          return this.collectionsService.getCollectionById(params.id);
-        }),
-        map((resp) => resp.msg),
-        map((collection) =>
-          Object.assign(collection, {
-            isViewable: true,
-          })
-        ),
-        switchMap((collection) => {
-          this.collection = collection;
-
-          return this.usersService.getUserById(collection.id_user);
-        }),
-        map((resp) => resp.msg),
-        switchMap((user) => {
-          this.user = user;
-
-          let isMyCollection = false;
-
-          if (this.user.id === this.loginService.user.id) {
-            isMyCollection = true;
-          }
-
-          this.collection = Object.assign(this.collection, {
-            isRemovable: this.rightsService.isAdmin || isMyCollection,
-          });
-
-          return of();
-        })
-      )
-      .subscribe();
-  }
-
   ngOnInit() {
-    this.initializeSubscription =
-      this.collectionsService.updaterCollections$.subscribe(() => {
-        this.initialize();
-      });
+    this.activatedRoute.data.subscribe((data) => {
+      this.user = data.user;
 
-    this.collectionsService.updaterCollections$.next();
+      this.collection = this.optionalService.addOptionalField(
+        data.collection,
+        true,
+        false
+      );
+
+      this.updateCollectionsSubscription =
+        this.collectionsService.updaterCollections$.subscribe(() => {
+          this.collectionsService
+            .getCollectionById(this.collection.id)
+            .pipe(
+              map((response) => {
+                return response.msg;
+              })
+            )
+            .subscribe((collection) => {
+              this.collection = this.optionalService.addOptionalField(
+                collection,
+                true,
+                false
+              );
+            });
+        });
+    });
   }
 
   ngOnDestroy() {
-    this.initializeSubscription.unsubscribe();
+    this.updateCollectionsSubscription.unsubscribe();
   }
 }

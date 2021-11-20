@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RightsService } from './rights.service';
+import { OptionalService } from './optional.service';
 
-describe('UserRightsService', () => {
-  let service: RightsService;
+describe('OptionalService', () => {
+  let service: OptionalService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(RightsService);
+    service = TestBed.inject(OptionalService);
   });
 
   it('should be created', () => {

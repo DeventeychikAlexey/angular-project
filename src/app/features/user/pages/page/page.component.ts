@@ -2,13 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserInterface } from '@shared/interfaces/user.interface';
 import { UsersService } from '@core/services/users.service';
 import { ActivatedRoute } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
 import { CollectionInterface } from '@shared/interfaces/collection.interface';
 import { CollectionsService } from '@core/services/collections.service';
 import { FilterInterface } from '@shared/interfaces/filter.interface';
-import { RightsService } from '@core/services/rights.service';
 import { Subscription } from 'rxjs';
-import { LoginService } from '@core/services/login.service';
+import { map } from 'rxjs/operators';
+import { OptionalService } from '@core/services/optional.service';
 
 @Component({
   selector: 'app-page',
@@ -23,63 +22,38 @@ export class PageComponent implements OnInit, OnDestroy {
     field: 'name',
     ignoreCase: true,
   };
-  isMyPage = false;
   collectionsUpdateSubscription: Subscription = new Subscription();
 
   constructor(
     private usersService: UsersService,
     private activatedRoute: ActivatedRoute,
     private collectionsService: CollectionsService,
-    private rightsService: RightsService,
-    private loginService: LoginService
+    private optionalService: OptionalService
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.params
-      .pipe(
-        switchMap((params) => {
-          setTimeout(() => {
-            this.isMyPage = this.loginService.user.id === params.id;
-          }, 0);
+    this.activatedRoute.data.subscribe((response) => {
+      this.user = response.user;
 
-          return this.usersService.getUserById(+params.id);
-        }),
-        map((resp) => resp.msg),
-        switchMap((user) => {
-          this.user = user;
-
-          this.collectionsUpdateSubscription =
-            this.collectionsService.updaterCollections$.subscribe(() => {
-              this.collectionsService
-                .getUserCollections(user.id)
-                .pipe(map((resp) => resp.msg))
-                .subscribe((collections) => {
-                  this.collections = this.modifyCollections(collections);
-                });
-            });
-
-          return this.collectionsService.getUserCollections(user.id);
-        }),
-        map((resp) => resp.msg),
-        map((collections) => {
-          return this.modifyCollections(collections);
-        })
-      )
-      .subscribe((collections) => {
-        this.collections = collections;
-      });
-  }
-
-  private modifyCollections(
-    collections: CollectionInterface[]
-  ): CollectionInterface[] {
-    return collections.map((collection: CollectionInterface) => {
-      return Object.assign(collection, {
-        isViewable: true,
-        isChangeable: this.rightsService.isAdmin || this.isMyPage,
-        isRemovable: this.rightsService.isAdmin || this.isMyPage,
-      });
+      this.collections = this.optionalService.addOptionalFields(
+        response.userCollections
+      );
     });
+
+    this.collectionsUpdateSubscription =
+      this.collectionsService.updaterCollections$.subscribe(() => {
+        this.collectionsService
+          .getUserCollections(this.user.id)
+          .pipe(
+            map((response) => {
+              return response.msg;
+            })
+          )
+          .subscribe((collections) => {
+            this.collections =
+              this.optionalService.addOptionalFields(collections);
+          });
+      });
   }
 
   ngOnDestroy() {

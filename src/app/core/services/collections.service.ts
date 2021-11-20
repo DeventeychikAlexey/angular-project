@@ -6,14 +6,23 @@ import { environment } from '@environment/environment';
 import { ResponseInterface } from '@shared/interfaces/response.interface';
 
 import { Observable, Subject } from 'rxjs';
-import { RightsService } from '@core/services/rights.service';
 import { CollectionFormBodyInterface } from '@shared/interfaces/collection-form-body.interface';
+import { CollectionInterface } from '@shared/interfaces/collection.interface';
+import { ItemInterface } from '@shared/interfaces/item.interface';
+import { UsersService } from '@core/services/users.service';
+import { LoginService } from '@core/services/login.service';
 
 @Injectable()
 export class CollectionsService {
   updaterCollections$ = new Subject();
+  collection!: CollectionInterface;
+  items: ItemInterface[] = [];
 
-  constructor(private http: HttpClient, private rightsService: RightsService) {}
+  constructor(
+    private http: HttpClient,
+    private usersService: UsersService,
+    private loginService: LoginService
+  ) {}
 
   getCollectionById(id: number): Observable<ResponseInterface> {
     return this.http.get<ResponseInterface>(
@@ -39,7 +48,7 @@ export class CollectionsService {
   ): Observable<ResponseInterface> {
     return this.http.post<ResponseInterface>(
       environment.baseURI +
-        this.rightsService.userOrAdmin +
+        this.usersService.getUserOrAdmin(this.loginService.user) +
         '/collections/' +
         id,
       body
@@ -52,7 +61,7 @@ export class CollectionsService {
   ): Observable<ResponseInterface> {
     return this.http.put<ResponseInterface>(
       environment.baseURI +
-        this.rightsService.userOrAdmin +
+        this.usersService.getUserOrAdmin(this.loginService.user) +
         '/collection/' +
         id,
       body
@@ -61,7 +70,10 @@ export class CollectionsService {
 
   removeCollection(id: number): Observable<ResponseInterface> {
     return this.http.delete<ResponseInterface>(
-      environment.baseURI + this.rightsService.userOrAdmin + '/collection/' + id
+      environment.baseURI +
+        this.usersService.getUserOrAdmin(this.loginService.user) +
+        '/collection/' +
+        id
     );
   }
 }

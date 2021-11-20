@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CollectionsService } from '@core/services/collections.service';
-import { of, Subscription } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { CollectionInterface } from '@shared/interfaces/collection.interface';
 import { LoginService } from '@core/services/login.service';
-import { RightsService } from '@core/services/rights.service';
+import { ActivatedRoute } from '@angular/router';
+import { OptionalService } from '@core/services/optional.service';
 
 @Component({
   selector: 'app-home',
@@ -13,43 +14,41 @@ import { RightsService } from '@core/services/rights.service';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   collections: CollectionInterface[] = [];
-  collectionsUpdateSubcription!: Subscription;
+  collectionsUpdateSubscription!: Subscription;
 
   constructor(
     private collectionsService: CollectionsService,
     private loginService: LoginService,
-    private rightsService: RightsService
+    private activatedRoute: ActivatedRoute,
+    private optionalService: OptionalService
   ) {}
 
   ngOnInit() {
-    this.collectionsUpdateSubcription =
-      this.collectionsService.updaterCollections$.subscribe(() => {
-        this.getCollections();
-      });
-    this.collectionsService.updaterCollections$.next();
-  }
+    this.activatedRoute.data.subscribe((data) => {
+      this.collections = this.optionalService.addOptionalFields(
+        data.collections
+      );
 
-  getCollections() {
-    this.collectionsService
-      .getCollections()
-      .pipe(
-        map((resp) => resp.msg),
-        map((collections) =>
-          collections.map((collection: CollectionInterface) =>
-            Object.assign(collection, {
-              isViewable: true,
-              isChangeable: this.rightsService.isAdmin,
-              isRemovable: this.rightsService.isAdmin,
-            })
-          )
-        )
-      )
-      .subscribe((collections) => {
-        this.collections = collections;
-      });
+      this.collectionsUpdateSubscription =
+        this.collectionsService.updaterCollections$.subscribe(() => {
+          this.collectionsService
+            .getCollections()
+            .pipe(
+              map((resp) => resp.msg),
+              map((collections) => {
+                return this.optionalService.addOptionalFields<CollectionInterface>(
+                  collections
+                );
+              })
+            )
+            .subscribe((collections) => {
+              this.collections = collections;
+            });
+        });
+    });
   }
 
   ngOnDestroy() {
-    this.collectionsUpdateSubcription.unsubscribe();
+    this.collectionsUpdateSubscription.unsubscribe();
   }
 }
