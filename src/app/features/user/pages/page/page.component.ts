@@ -8,6 +8,7 @@ import { FilterInterface } from '@shared/interfaces/filter.interface';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { OptionalService } from '@core/services/optional.service';
+import { CollectionsRequestService } from '@requests/services/collections-request.service';
 
 @Component({
   selector: 'app-page',
@@ -28,6 +29,7 @@ export class PageComponent implements OnInit, OnDestroy {
     private usersService: UsersService,
     private activatedRoute: ActivatedRoute,
     private collectionsService: CollectionsService,
+    private collectionsRequestService: CollectionsRequestService,
     private optionalService: OptionalService
   ) {}
 
@@ -42,7 +44,7 @@ export class PageComponent implements OnInit, OnDestroy {
 
     this.collectionsUpdateSubscription =
       this.collectionsService.updaterCollections$.subscribe(() => {
-        this.collectionsService
+        this.collectionsRequestService
           .getUserCollections(this.user.id)
           .pipe(
             map((response) => {

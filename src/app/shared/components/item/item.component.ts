@@ -4,6 +4,7 @@ import { DialogInterface } from '@shared/interfaces/dialog.interface';
 import { DialogService } from '@core/services/dialog.service';
 import { SnackBarService } from '@core/services/snack-bar.service';
 import { ItemsService } from '@core/services/items.service';
+import { ItemsRequestService } from '@requests/services/items-request.service';
 
 @Component({
   selector: 'app-item',
@@ -30,7 +31,8 @@ export class ItemComponent {
   constructor(
     private itemsService: ItemsService,
     private dialogService: DialogService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private itemsRequestService: ItemsRequestService
   ) {}
 
   confirmRemove() {
@@ -38,7 +40,7 @@ export class ItemComponent {
   }
 
   remove() {
-    this.itemsService.removeItem(this.item.id).subscribe(() => {
+    this.itemsRequestService.removeItem(this.item.id).subscribe(() => {
       this.itemsService.updaterItems$.next();
       this.snackBarService.openSnackBar('Successfully deleted!');
     });

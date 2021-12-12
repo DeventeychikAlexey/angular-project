@@ -7,14 +7,14 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { CollectionsService } from '@core/services/collections.service';
 import { DialogService } from '@core/services/dialog.service';
 import { SnackBarService } from '@core/services/snack-bar.service';
-
 import { CollectionInterface } from '@shared/interfaces/collection.interface';
 import { DialogInterface } from '@shared/interfaces/dialog.interface';
 import { ImagesService } from '@core/services/images.service';
-import { UsersService } from '@core/services/users.service';
+import { CollectionsRequestService } from '@requests/services/collections-request.service';
+import { CollectionsService } from '@core/services/collections.service';
+import { ImagesRequestService } from '@requests/services/images-request.service';
 
 @Component({
   selector: 'app-collection',
@@ -44,9 +44,11 @@ export class CollectionComponent implements OnInit, OnChanges {
 
   constructor(
     private collectionsService: CollectionsService,
+    private collectionsRequestService: CollectionsRequestService,
     private dialogService: DialogService,
     private snackBarService: SnackBarService,
-    private imagesService: ImagesService
+    private imagesService: ImagesService,
+    private imagesRequestService: ImagesRequestService
   ) {
     this.image = this.imagesService.pathToLoadingImage;
   }
@@ -68,7 +70,7 @@ export class CollectionComponent implements OnInit, OnChanges {
   private getImage() {
     this.isImageLoading = true;
 
-    this.imagesService.getImage(this.collection.id).subscribe((data) => {
+    this.imagesRequestService.getImage(this.collection.id).subscribe((data) => {
       this.image = <string>data.msg;
 
       this.isImageLoading = false;
@@ -97,7 +99,7 @@ export class CollectionComponent implements OnInit, OnChanges {
   }
 
   remove() {
-    this.collectionsService
+    this.collectionsRequestService
       .removeCollection(this.collection.id)
       .subscribe(() => {
         this.collectionsService.updaterCollections$.next();

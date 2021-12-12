@@ -6,14 +6,12 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-
 import { SnackBarService } from '@core/services/snack-bar.service';
-import { RegisterService } from '@core/services/register.service';
-
 import { ColorsEnum } from '@shared/enums/colors.enum';
 import { FormErrorsEnum } from '@shared/enums/form-errors.enum';
 import { FormRegisterErrorsEnum } from '@shared/enums/form-register-errors.enum';
 import { compareValueValidator } from '@shared/validators/compare-value.validator';
+import { RegisterRequestService } from '@requests/services/register-request.service';
 
 @Component({
   selector: 'app-register-content',
@@ -27,7 +25,7 @@ export class RegisterContentComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private registerService: RegisterService,
+    private registerRequestService: RegisterRequestService,
     private snackBarService: SnackBarService,
     private router: Router
   ) {}
@@ -111,7 +109,7 @@ export class RegisterContentComponent implements OnInit {
 
     this.form.markAsPending();
 
-    this.registerService.register(this.form.value).subscribe(
+    this.registerRequestService.register(this.form.value).subscribe(
       () => {},
       () => {
         this.snackBarService.openSnackBar('Try again. Something went wrong', {

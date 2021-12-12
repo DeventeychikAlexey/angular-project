@@ -6,16 +6,14 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-
 import { SnackBarService } from '@core/services/snack-bar.service';
 import { LoginService } from '@core/services/login.service';
-
 import { ColorsEnum } from '@shared/enums/colors.enum';
 import { FormErrorsEnum } from '@shared/enums/form-errors.enum';
 import { FormLoginErrorsEnum } from '@shared/enums/form-login-errors.enum';
-
 import { map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { LoginRequestService } from '@requests/services/login-request.service';
 
 @Component({
   selector: 'app-login-content',
@@ -30,6 +28,7 @@ export class LoginContentComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private loginService: LoginService,
+    private loginRequestService: LoginRequestService,
     private snackBarService: SnackBarService,
     private router: Router
   ) {}
@@ -83,7 +82,7 @@ export class LoginContentComponent implements OnInit {
 
     this.form.markAsPending();
 
-    this.loginService
+    this.loginRequestService
       .login(this.form.value)
       .pipe(
         map((resp) => resp.msg),

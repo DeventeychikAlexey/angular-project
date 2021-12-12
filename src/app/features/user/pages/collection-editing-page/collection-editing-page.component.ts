@@ -8,6 +8,7 @@ import { CollectionsService } from '@core/services/collections.service';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { OptionalService } from '@core/services/optional.service';
+import { CollectionsRequestService } from '@requests/services/collections-request.service';
 
 @Component({
   selector: 'app-collection-editing-page',
@@ -24,6 +25,7 @@ export class CollectionEditingPageComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private usersService: UsersService,
     private collectionsService: CollectionsService,
+    private collectionsRequestService: CollectionsRequestService,
     private optionalService: OptionalService
   ) {}
 
@@ -39,7 +41,7 @@ export class CollectionEditingPageComponent implements OnInit, OnDestroy {
 
       this.updateCollectionsSubscription =
         this.collectionsService.updaterCollections$.subscribe(() => {
-          this.collectionsService
+          this.collectionsRequestService
             .getCollectionById(this.collection.id)
             .pipe(
               map((response) => {

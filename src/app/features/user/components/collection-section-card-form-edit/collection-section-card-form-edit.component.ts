@@ -1,13 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { UserInterface } from '@shared/interfaces/user.interface';
 import { ColorsEnum } from '@shared/enums/colors.enum';
-import { CollectionsService } from '@core/services/collections.service';
 import { CollectionFormBodyInterface } from '@shared/interfaces/collection-form-body.interface';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UppyService } from '@core/services/uppy.service';
 import { CollectionInterface } from '@shared/interfaces/collection.interface';
 import { ResponseInterface } from '@shared/interfaces/response.interface';
+import { CollectionsRequestService } from '@requests/services/collections-request.service';
 
 @Component({
   selector: 'app-collection-section-card-form-edit',
@@ -33,10 +33,10 @@ export class CollectionSectionCardFormEditComponent {
     },
   };
 
-  constructor(private collectionsService: CollectionsService) {}
+  constructor(private collectionsRequestService: CollectionsRequestService) {}
 
   submit(body: CollectionFormBodyInterface): Observable<ResponseInterface> {
-    return this.collectionsService
+    return this.collectionsRequestService
       .editCollection(this.collection.id, body)
       .pipe(map((resp) => resp.msg));
   }

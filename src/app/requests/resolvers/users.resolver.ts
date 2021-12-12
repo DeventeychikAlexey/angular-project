@@ -5,12 +5,12 @@ import {
   ActivatedRouteSnapshot,
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
 import { UsersService } from '@core/services/users.service';
 import { ResponseInterface } from '@shared/interfaces/response.interface';
+import { map, switchMap } from 'rxjs/operators';
 
 @Injectable()
-export class UsersResolverService implements Resolve<ResponseInterface> {
+export class UsersResolver implements Resolve<any> {
   constructor(private usersService: UsersService) {}
 
   resolve(

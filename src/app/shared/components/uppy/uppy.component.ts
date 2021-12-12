@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
 import Uppy from '@uppy/core';
 import DropTarget from '@uppy/drop-target';
 import XHRUpload from '@uppy/xhr-upload';
 import Dashboard from '@uppy/dashboard';
-
 import { environment } from '@environment/environment';
 import { UppyService } from '@core/services/uppy.service';
 

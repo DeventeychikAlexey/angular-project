@@ -1,9 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
-
 import { LoginService } from '@core/services/login.service';
-
 import { RouteInterface } from '@shared/interfaces/route.interface';
-
 import { of, Subscription } from 'rxjs';
 import { SnackBarService } from '@core/services/snack-bar.service';
 

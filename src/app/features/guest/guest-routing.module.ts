@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from '@features/guest/pages/home/home.component';
-import { CollectionsResolverService } from '@core/services/collections-resolver.service';
+import { CollectionsResolver } from '@requests/resolvers/collections.resolver';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    resolve: { collections: CollectionsResolverService },
+    resolve: { collections: CollectionsResolver },
     component: HomeComponent,
   },
 ];

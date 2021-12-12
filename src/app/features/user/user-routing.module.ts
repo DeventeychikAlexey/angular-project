@@ -3,19 +3,19 @@ import { RouterModule, Routes } from '@angular/router';
 import { PageComponent } from '@features/user/pages/page/page.component';
 import { CollectionPageComponent } from '@features/user/pages/collection-page/collection-page.component';
 import { CollectionEditingPageComponent } from '@features/user/pages/collection-editing-page/collection-editing-page.component';
-import { UsersResolverService } from '@core/services/users-resolver.service';
-import { UserCollectionsResolverService } from '@core/services/user-collections-resolver.service';
-import { CollectionResolverService } from '@core/services/collection-resolver.service';
-import { CollectionItemsResolverService } from '@core/services/collection-items-resolver.service';
+import { CollectionItemsResolver } from '@requests/resolvers/collection-items.resolver';
+import { CollectionResolver } from '@requests/resolvers/collection.resolver';
+import { UsersResolver } from '@requests/resolvers/users.resolver';
+import { UserCollectionsResolver } from '@requests/resolvers/user-collections.resolver';
 
 const routes: Routes = [
   {
     path: ':userId',
-    resolve: { user: UsersResolverService },
+    resolve: { user: UsersResolver },
     children: [
       {
         path: '',
-        resolve: { userCollections: UserCollectionsResolverService },
+        resolve: { userCollections: UserCollectionsResolver },
         children: [
           {
             path: '',
@@ -23,11 +23,11 @@ const routes: Routes = [
           },
           {
             path: 'collection/:collectionId',
-            resolve: { collection: CollectionResolverService },
+            resolve: { collection: CollectionResolver },
             children: [
               {
                 path: '',
-                resolve: { collectionItems: CollectionItemsResolverService },
+                resolve: { collectionItems: CollectionItemsResolver },
                 children: [
                   {
                     path: '',

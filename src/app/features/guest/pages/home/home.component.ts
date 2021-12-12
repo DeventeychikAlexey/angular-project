@@ -6,6 +6,7 @@ import { CollectionInterface } from '@shared/interfaces/collection.interface';
 import { LoginService } from '@core/services/login.service';
 import { ActivatedRoute } from '@angular/router';
 import { OptionalService } from '@core/services/optional.service';
+import { CollectionsRequestService } from '@requests/services/collections-request.service';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private collectionsService: CollectionsService,
     private loginService: LoginService,
     private activatedRoute: ActivatedRoute,
-    private optionalService: OptionalService
+    private optionalService: OptionalService,
+    private collectionsRequestService: CollectionsRequestService
   ) {}
 
   ngOnInit() {
@@ -31,7 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
       this.collectionsUpdateSubscription =
         this.collectionsService.updaterCollections$.subscribe(() => {
-          this.collectionsService
+          this.collectionsRequestService
             .getCollections()
             .pipe(
               map((resp) => resp.msg),

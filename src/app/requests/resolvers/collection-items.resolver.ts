@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import {
-  ActivatedRouteSnapshot,
   Resolve,
   RouterStateSnapshot,
+  ActivatedRouteSnapshot,
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { ResponseInterface } from '@shared/interfaces/response.interface';
-import { ItemsService } from '@core/services/items.service';
-import { CollectionsService } from '@core/services/collections.service';
 import { map, switchMap } from 'rxjs/operators';
+import { ItemsRequestService } from '@requests/services/items-request.service';
+import { CollectionsService } from '@core/services/collections.service';
+import { ResponseInterface } from '@shared/interfaces/response.interface';
 
 @Injectable()
-export class CollectionItemsResolverService implements Resolve<any> {
+export class CollectionItemsResolver implements Resolve<any> {
   constructor(
-    private itemsService: ItemsService,
+    private itemsRequestService: ItemsRequestService,
     private collectionsService: CollectionsService
   ) {}
 
@@ -21,7 +21,7 @@ export class CollectionItemsResolverService implements Resolve<any> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<ResponseInterface> {
-    return this.itemsService
+    return this.itemsRequestService
       .getCollectionItems(this.collectionsService.collection.id)
       .pipe(
         map((response) => {

@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
 import { environment } from '@environment/environment';
-
 import { ResponseInterface } from '@shared/interfaces/response.interface';
 import { LoginBodyInterface } from '@shared/interfaces/login-body.interface';
-
 import { Observable, Subject, of } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
 
@@ -82,12 +79,5 @@ export class LoginService {
     this.removeToken();
     this.removeUser();
     this.needRoutesUpdate$.next();
-  }
-
-  login(ops: LoginBodyInterface): Observable<ResponseInterface> {
-    return this.http.post<ResponseInterface>(
-      environment.baseURI + 'auth/login',
-      ops
-    );
   }
 }

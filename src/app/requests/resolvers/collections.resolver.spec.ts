@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UsersResolverService } from './users-resolver.service';
+import { CollectionsResolver } from './collections.resolver';
 
-describe('UsersResolver', () => {
-  let resolver: UsersResolverService;
+describe('CollectionsResolver', () => {
+  let resolver: CollectionsResolver;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    resolver = TestBed.inject(UsersResolverService);
+    resolver = TestBed.inject(CollectionsResolver);
   });
 
   it('should be created', () => {

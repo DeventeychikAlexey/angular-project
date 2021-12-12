@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -9,6 +8,7 @@ import { AuthModule } from '@features/auth/auth.module';
 import { UserModule } from '@features/user/user.module';
 import { SharedModule } from '@shared/shared.module';
 import { GuestModule } from '@features/guest/guest.module';
+import { RequestsModule } from './requests/requests.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +21,7 @@ import { GuestModule } from '@features/guest/guest.module';
     UserModule,
     GuestModule,
     SharedModule,
+    RequestsModule,
   ],
   bootstrap: [AppComponent],
 })

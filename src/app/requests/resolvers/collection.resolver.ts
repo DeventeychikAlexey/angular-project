@@ -5,23 +5,24 @@ import {
   ActivatedRouteSnapshot,
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import { CollectionsRequestService } from '@requests/services/collections-request.service';
+import { UsersService } from '@core/services/users.service';
 import { CollectionsService } from '@core/services/collections.service';
 import { ResponseInterface } from '@shared/interfaces/response.interface';
-import { map, switchMap } from 'rxjs/operators';
-import { UsersService } from '@core/services/users.service';
 
 @Injectable()
-export class CollectionResolverService implements Resolve<ResponseInterface> {
+export class CollectionResolver implements Resolve<any> {
   constructor(
-    private collectionsService: CollectionsService,
-    private usersService: UsersService
+    private collectionsRequestService: CollectionsRequestService,
+    private usersService: UsersService,
+    private collectionsService: CollectionsService
   ) {}
-
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<ResponseInterface> {
-    return this.collectionsService
+    return this.collectionsRequestService
       .getCollectionById(+route.paramMap.get('collectionId')!)
       .pipe(
         map((response) => {

@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CollectionFormBodyInterface } from '@shared/interfaces/collection-form-body.interface';
-import { CollectionsService } from '@core/services/collections.service';
 import { map } from 'rxjs/operators';
 import { ColorsEnum } from '@shared/enums/colors.enum';
 import { UserInterface } from '@shared/interfaces/user.interface';
 import { UppyService } from '@core/services/uppy.service';
 import { ResponseInterface } from '@shared/interfaces/response.interface';
+import { CollectionsRequestService } from '@requests/services/collections-request.service';
 
 @Component({
   selector: 'app-collection-section-card-form-create',
@@ -30,10 +30,10 @@ export class CollectionSectionCardFormCreateComponent {
     },
   };
 
-  constructor(private collectionsService: CollectionsService) {}
+  constructor(private collectionsRequestService: CollectionsRequestService) {}
 
   submit(body: CollectionFormBodyInterface): Observable<ResponseInterface> {
-    return this.collectionsService
+    return this.collectionsRequestService
       .createCollection(this.user.id, body)
       .pipe(map((resp) => resp.msg));
   }
