@@ -1,0 +1,20 @@
+<app-list-section
+  [title]="title"
+  [filter]="filter"
+  [list]="items"
+  [listTemplate]="listTemplate"
+></app-list-section>
+
+<ng-template #listTemplate>
+  <app-items
+    *ngIf="listSectionService.list.length > 0; else emptyList"
+    [items]="listSectionService.list"
+  >
+  </app-items>
+
+  <ng-template #emptyList>
+    <br />
+
+    <p class="text-center">No item</p>
+  </ng-template>
+</ng-template>

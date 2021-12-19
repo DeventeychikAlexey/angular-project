@@ -1,0 +1,16 @@
+<section class="section">
+  <div class="container">
+    <h2 class="section-title text-center">{{ title }}</h2>
+
+    <app-filter
+      *ngIf="filter"
+      [field]="filter.field"
+      [label]="filter.label"
+      [ignoreCase]="filter.ignoreCase"
+      [list]="list"
+      (listChange)="listSectionService.list = $event"
+    ></app-filter>
+
+    <ng-container *ngTemplateOutlet="listTemplate"></ng-container>
+  </div>
+</section>

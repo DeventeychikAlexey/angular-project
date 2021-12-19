@@ -1,0 +1,112 @@
+:host::ng-deep .header {
+  height: 70px;
+
+  position: relative;
+  z-index: 1000;
+
+  .body {
+    display: flex;
+    justify-content: space-between;
+
+    height: 100%;
+
+    .logo {
+      display: flex;
+
+      align-items: center;
+
+      img {
+        object-fit: contain;
+      }
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+
+      .menu {
+        display: none;
+      }
+
+      .list {
+        display: flex;
+
+        padding: 0;
+
+        .item {
+          color: #ffffff;
+
+          a {
+            &.active {
+              background-color: rgba(0, 0, 0, 0.3);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  :host::ng-deep .header {
+    position: relative;
+
+    &::before {
+      content: "";
+
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 3;
+
+      background-color: inherit;
+    }
+
+    .body {
+      .logo {
+        position: relative;
+        z-index: 3;
+      }
+
+      .nav {
+        .menu {
+          display: block;
+
+          position: relative;
+          z-index: 3;
+        }
+
+        .list {
+          position: absolute;
+          top: 0;
+          left: 100vw;
+          z-index: 2;
+
+          width: 100vw;
+          height: 100vh;
+
+          flex-direction: column;
+
+          background-color: #1b5d9b;
+
+          padding: 70px 0 0 0;
+
+          overflow: auto;
+
+          .item {
+            display: flex;
+            justify-content: flex-end;
+          }
+        }
+
+        &.active {
+          .list {
+            left: 0;
+          }
+        }
+      }
+    }
+  }
+}

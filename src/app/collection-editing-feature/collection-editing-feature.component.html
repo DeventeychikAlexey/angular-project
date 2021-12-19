@@ -1,0 +1,10 @@
+<app-user-header [user]="user"></app-user-header>
+
+<app-collection-section
+  [collection]="collectionService.collection"
+></app-collection-section>
+
+<app-collection-section-card-form-edit
+  [user]="user"
+  [collection]="collectionService.collection"
+></app-collection-section-card-form-edit>
