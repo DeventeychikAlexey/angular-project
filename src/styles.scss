@@ -1,7 +1,7 @@
 @use "~@angular/material" as mat;
 
 @import "normalize.css";
-@import "uppy.scss";
+@import "app/uppy/uppy";
 
 $primary-color: mat.get-color-from-palette(mat.$indigo-palette, 500);
 $info-color: mat.get-color-from-palette(mat.$indigo-palette, 300);

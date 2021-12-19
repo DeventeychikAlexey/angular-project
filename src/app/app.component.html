@@ -1,9 +1,11 @@
-<div class="page" [class.locked]="routesService.menuActivated">
+<div class="page">
   <app-header></app-header>
 
   <main class="main">
     <router-outlet></router-outlet>
   </main>
 
-  <app-footer *ngIf="showFooter"></app-footer>
+  <app-footer></app-footer>
 </div>
+
+<!--[class.locked]="routesService.menuActivated"-->

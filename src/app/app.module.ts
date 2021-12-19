@@ -3,25 +3,27 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CoreModule } from '@core/core.module';
-import { AuthModule } from '@features/auth/auth.module';
-import { UserModule } from '@features/user/user.module';
-import { SharedModule } from '@shared/shared.module';
-import { GuestModule } from '@features/guest/guest.module';
-import { RequestsModule } from './requests/requests.module';
+import { FooterModule } from './footer/footer.module';
+import { HeaderModule } from './header/header.module';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthorizationInterceptor } from './login/interceptors/authorization.interceptor';
 
 @NgModule({
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthorizationInterceptor,
+      multi: true,
+    },
+  ],
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    CoreModule,
-    AuthModule,
-    UserModule,
-    GuestModule,
-    SharedModule,
-    RequestsModule,
+    FooterModule,
+    HeaderModule,
+    HttpClientModule,
   ],
   bootstrap: [AppComponent],
 })
