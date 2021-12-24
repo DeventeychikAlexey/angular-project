@@ -1,6 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { of, Subscription } from 'rxjs';
 import { RouteInterface } from '../interfaces/route.interface';
+import { UserService } from '../../../shared/user/services/user.service';
+import { LoginService } from '../../../features/authorization-feature/services/login.service';
+import { SnackBarService } from '../../services/snack-bar.service';
+import { ColorsEnum } from '../../enums/colors.enum';
 // import { LoginService } from '../../login/services/login.service';
 // import { SnackBarService } from '../../services/snack-bar.service';
 
@@ -10,13 +14,19 @@ function noop() {}
 export class HeaderService implements OnDestroy {
   routes: RouteInterface[] = [];
   menuActivated = false;
-  // subscription: Subscription;
+  headerUpdateSubscription: Subscription;
 
-  constructor() { // private snackBarService: SnackBarService // private loginService: LoginService,
-    // this.subscription = this.loginService.needRoutesUpdate$.subscribe(() => {
-    //   this.updateRoutes();
-    // });
-    // this.loginService.needRoutesUpdate$.next();
+  constructor(
+    private userService: UserService,
+    private loginService: LoginService,
+    private snackBarService: SnackBarService
+  ) {
+    this.headerUpdateSubscription =
+      this.userService.needsUpdateHeader$.subscribe(() => {
+        this.updateRoutes();
+      });
+
+    this.userService.needsUpdateHeader$.next();
   }
 
   toggleMenu() {
@@ -45,37 +55,38 @@ export class HeaderService implements OnDestroy {
     ];
 
     let loggedInRoutes: RouteInterface[];
-    //
-    // if (this.loginService.isLoggedIn) {
-    //   loggedInRoutes = [
-    //     {
-    //       route: '/auth/login',
-    //       title: 'Logout',
-    //       handler: this.logout.bind(this),
-    //     },
-    //     {
-    //       route: `/user/${this.loginService.user!.id}`,
-    //       title: 'My page',
-    //       handler: noop,
-    //     },
-    //   ];
-    // } else {
-    loggedInRoutes = [
-      { route: '/auth/register', title: 'Register', handler: noop },
-      { route: '/auth/login', title: 'Log in', handler: noop },
-    ];
-    // }
+
+    if (this.loginService.isLoggedIn) {
+      loggedInRoutes = [
+        {
+          route: '/auth/login',
+          title: 'Logout',
+          handler: this.logout.bind(this),
+        },
+        {
+          route: `/user/${this.userService.user!.id}`,
+          title: 'My page',
+          handler: noop,
+        },
+      ];
+    } else {
+      loggedInRoutes = [
+        { route: '/auth/register', title: 'Register', handler: noop },
+        { route: '/auth/login', title: 'Log in', handler: noop },
+      ];
+    }
 
     this.routes = [...loggedInRoutes, ...routes].reverse();
   }
 
   logout() {
-    // of(this.loginService.logout()).subscribe(() => {
-    //   this.snackBarService.openSnackBar("You're logged out");
-    // });
+    this.loginService.logout();
+    this.snackBarService.openSnackBar("You're logged out", {
+      panelClass: ColorsEnum.Success,
+    });
   }
 
   ngOnDestroy() {
-    // this.subscription.unsubscribe();
+    this.headerUpdateSubscription.unsubscribe();
   }
 }

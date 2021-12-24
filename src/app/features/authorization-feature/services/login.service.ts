@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { LoginRequestService } from './login-request.service';
 import { UserService } from '../../../shared/user/services/user.service';
 import { LoginFormBodyInterface } from '../interfaces/login-form-body.interface';
-import { forkJoin, merge, Observable, of } from 'rxjs';
-import { catchError, concatAll, switchAll, tap } from 'rxjs/operators';
+import { merge, Observable } from 'rxjs';
+import { concatAll, tap } from 'rxjs/operators';
 import { UserInterface } from '../../../shared/user/interfaces/user.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -21,6 +21,8 @@ export class LoginService {
 
       this.loginRequestService.getUserByToken().subscribe((user) => {
         this.userService.user = user;
+
+        this.userService.needsUpdateHeader$.next();
       }, this.logout);
     }
   }
@@ -49,5 +51,6 @@ export class LoginService {
     this.token = '';
     localStorage.removeItem('token');
     this.userService.user = null;
+    this.userService.needsUpdateHeader$.next();
   }
 }

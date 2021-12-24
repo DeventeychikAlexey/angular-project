@@ -1,18 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 import { UserService } from '../../../../shared/user/services/user.service';
 import { SnackBarService } from '../../../../root/services/snack-bar.service';
 import { ColorsEnum } from '../../../../../../../frontAngular/src/app/enums/colors.enum';
 import { FormsErrorService } from '../../../../shared/forms/services/forms-error.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss', '../../authorization.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   formGroup: FormGroup;
+  loginSubscription?: Subscription;
 
   constructor(
     private loginService: LoginService,
@@ -41,30 +43,38 @@ export class LoginComponent {
 
     this.formGroup.markAsPending();
 
-    this.loginService.login(this.formGroup.value).subscribe(
-      () => {},
-      () => {
-        this.snackBarService.openSnackBar('Invalid data', {
-          panelClass: ColorsEnum.Error,
-        });
-
-        this.formGroup.reset();
-        this.loginService.logout();
-      },
-      () => {
-        this.userService
-          .goToUserPage()
-          .then(() => {
-            this.snackBarService.openSnackBar("You're logged in", {
-              panelClass: ColorsEnum.Success,
-            });
-          })
-          .catch(() => {
-            this.snackBarService.navigationError();
-            this.formGroup.reset();
-            this.loginService.logout();
+    this.loginSubscription = this.loginService
+      .login(this.formGroup.value)
+      .subscribe(
+        () => {},
+        () => {
+          this.snackBarService.openSnackBar('Invalid data', {
+            panelClass: ColorsEnum.Error,
           });
-      }
-    );
+
+          this.formGroup.reset();
+          this.loginService.logout();
+        },
+        () => {
+          this.userService.needsUpdateHeader$.next();
+
+          this.userService
+            .goToUserPage()
+            .then(() => {
+              this.snackBarService.openSnackBar("You're logged in", {
+                panelClass: ColorsEnum.Success,
+              });
+            })
+            .catch(() => {
+              this.snackBarService.navigationError();
+              this.formGroup.reset();
+              this.loginService.logout();
+            });
+        }
+      );
+  }
+
+  ngOnDestroy() {
+    this.loginSubscription?.unsubscribe();
   }
 }

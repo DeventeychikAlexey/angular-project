@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SnackBarService } from '../../../../root/services/snack-bar.service';
 import { compareValueValidator } from '../../validators/compare-value.validator';
@@ -6,14 +6,16 @@ import { FormsErrorService } from '../../../../shared/forms/services/forms-error
 import { ColorsEnum } from '../../../../root/enums/colors.enum';
 import { Router } from '@angular/router';
 import { RegisterRequestService } from '../../services/register-request.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register-content',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss', '../../authorization.scss'],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnDestroy {
   formGroup: FormGroup;
+  registerSubscription?: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -54,33 +56,42 @@ export class RegisterComponent {
 
     this.formGroup.markAsPending();
 
-    this.registerRequestService.register(this.formGroup.value).subscribe(
-      () => {},
-      () => {
-        this.snackBarService.openSnackBar('Something went wrong :( Try again', {
-          panelClass: ColorsEnum.Error,
-        });
-        this.formGroup.reset();
-      },
-      () => {
-        this.goToLoginPage()
-          .then(() => {
-            this.snackBarService.openSnackBar(
-              'You can sign in your created account',
-              {
-                panelClass: ColorsEnum.Success,
-              }
-            );
-          })
-          .catch(() => {
-            this.snackBarService.navigationError();
-            this.formGroup.reset();
-          });
-      }
-    );
+    this.registerSubscription = this.registerRequestService
+      .register(this.formGroup.value)
+      .subscribe(
+        () => {},
+        () => {
+          this.snackBarService.openSnackBar(
+            'Something went wrong :( Try again',
+            {
+              panelClass: ColorsEnum.Error,
+            }
+          );
+          this.formGroup.reset();
+        },
+        () => {
+          this.goToLoginPage()
+            .then(() => {
+              this.snackBarService.openSnackBar(
+                'You can sign in your created account',
+                {
+                  panelClass: ColorsEnum.Success,
+                }
+              );
+            })
+            .catch(() => {
+              this.snackBarService.navigationError();
+              this.formGroup.reset();
+            });
+        }
+      );
   }
 
   private goToLoginPage(): Promise<boolean> {
     return this.router.navigate(['/', 'auth', 'login']);
+  }
+
+  ngOnDestroy() {
+    this.registerSubscription?.unsubscribe();
   }
 }
