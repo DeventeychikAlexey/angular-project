@@ -1,0 +1,91 @@
+<section>
+  <div class="container">
+    <div class="body">
+      <mat-card>
+        <mat-card-title class="text-center">Create your account</mat-card-title>
+
+        <br />
+
+        <mat-card-content>
+          <form (ngSubmit)="submit()" [formGroup]="formGroup">
+            <app-form-field-input
+              label="Name"
+              required
+              [control]="formGroup.get('name')!"
+              [errorMessage]="
+                formsErrorService.getRequiredError(formGroup.get('name')!)
+              "
+            ></app-form-field-input>
+
+            <app-form-field-input
+              label="Email"
+              required
+              [control]="formGroup.get('login')!"
+              [errorMessage]="
+                formsErrorService.getRequiredError(formGroup.get('login')!) ||
+                formsErrorService.getEmailError(formGroup.get('login')!)
+              "
+              type="email"
+            ></app-form-field-input>
+
+            <app-form-field-input
+              label="Password"
+              required
+              [control]="formGroup.get('password')!"
+              [errorMessage]="
+                formsErrorService.getRequiredError(
+                  formGroup.get('password')!
+                ) ||
+                formsErrorService.getMinLengthError(
+                  formGroup.get('password')!,
+                  6
+                ) ||
+                formsErrorService.getMaxLengthError(
+                  formGroup.get('password')!,
+                  32
+                )
+              "
+              type="password"
+            ></app-form-field-input>
+
+            <app-form-field-input
+              label="Repeat password"
+              required
+              [control]="formGroup.get('password2')!"
+              [errorMessage]="
+                formsErrorService.getMustMatchError(
+                  formGroup.get('password2')!,
+                  'password'
+                ) ||
+                formsErrorService.getRequiredError(
+                  formGroup.get('password2')!
+                ) ||
+                formsErrorService.getMinLengthError(
+                  formGroup.get('password2')!,
+                  6
+                ) ||
+                formsErrorService.getMaxLengthError(
+                  formGroup.get('password2')!,
+                  32
+                )
+              "
+              type="password"
+            ></app-form-field-input>
+
+            <app-form-button
+              class="full-width"
+              type="submit"
+              [pending]="formGroup.pending"
+              text="Register"
+            >
+            </app-form-button>
+          </form>
+        </mat-card-content>
+
+        <mat-card-footer>
+          <app-progress-bar [pending]="formGroup.pending"></app-progress-bar>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,54 @@
+<section>
+  <div class="container">
+    <div class="body">
+      <mat-card>
+        <mat-card-title class="text-center">Log in your account</mat-card-title>
+
+        <br />
+
+        <mat-card-content>
+          <form (ngSubmit)="submit()" [formGroup]="formGroup">
+            <app-form-field-input
+              label="Email"
+              [control]="formGroup.get('login')!"
+              type="email"
+              [errorMessage]="
+                formsErrorService.getRequiredError(formGroup.get('login')!) ||
+                formsErrorService.getEmailError(formGroup.get('login')!)
+              "
+            ></app-form-field-input>
+
+            <app-form-field-input
+              label="Password"
+              [control]="formGroup.get('password')!"
+              type="password"
+              [errorMessage]="
+                formsErrorService.getRequiredError(
+                  formGroup.get('password')!
+                ) ||
+                formsErrorService.getMinLengthError(
+                  formGroup.get('password')!,
+                  6
+                ) ||
+                formsErrorService.getMaxLengthError(
+                  formGroup.get('password')!,
+                  32
+                )
+              "
+            ></app-form-field-input>
+
+            <app-form-button
+              class="full-width"
+              [pending]="formGroup.pending"
+              text="Log in"
+            ></app-form-button>
+          </form>
+        </mat-card-content>
+
+        <mat-card-footer>
+          <app-progress-bar [pending]="formGroup.pending"></app-progress-bar>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </div>
+</section>
