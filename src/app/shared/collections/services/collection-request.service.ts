@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../../../../frontAngular/src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CollectionInterface } from '../interfaces/collection.interface';
 import { LoginService } from '../../../features/authorization-feature/services/login.service';
 import { UserService } from '../../user/services/user.service';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +24,10 @@ export class CollectionRequestService {
 
   getUserCollections(id: number): Observable<CollectionInterface[]> {
     return this.http.get<CollectionInterface[]>(
-      environment.baseURI + 'collections/' + id
+      environment.baseURI +
+        `${this.loginService.isLoggedIn ? 'user/' : ''}` +
+        'collections/' +
+        id
     );
   }
 

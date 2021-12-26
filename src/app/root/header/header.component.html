@@ -1,13 +1,13 @@
 <mat-toolbar class="header" color="primary">
   <div class="container">
     <div class="body">
-      <a class="logo" routerLink="/">
+      <a class="logo" routerLink="/guest/home">
         <img src="../../favicon.ico" alt="logo" />
       </a>
 
-      <nav class="nav" [class.active]="routesService.menuActivated">
+      <nav class="nav" [class.active]="headerService.menuActivated">
         <button
-          (click)="routesService.toggleMenu()"
+          (click)="headerService.toggleMenu()"
           class="menu"
           mat-icon-button
         >
@@ -16,12 +16,12 @@
 
         <mat-list class="list">
           <mat-list-item
-            *ngFor="let route of routesService.routes"
+            *ngFor="let route of headerService.routes"
             class="item"
           >
             <a
               (click)="route.handler($event)"
-              (click)="routesService.closeMenu()"
+              (click)="headerService.closeMenu()"
               mat-button
               [routerLink]="route.route"
               routerLinkActive="active"

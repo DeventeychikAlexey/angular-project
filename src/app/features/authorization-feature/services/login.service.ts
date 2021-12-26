@@ -14,20 +14,21 @@ export class LoginService {
     private userService: UserService,
     private loginRequestService: LoginRequestService
   ) {
-    const token = localStorage.getItem('token');
-
-    if (!!token) {
-      this.Token = token;
-
-      this.loginRequestService.getUserByToken().subscribe((user) => {
-        this.userService.user = user;
-
-        this.userService.needsUpdateHeader$.next();
-      }, this.logout);
-    }
+    // const token = localStorage.getItem('token');
+    //
+    // if (!!token) {
+    //   this.Token = token;
+    //
+    //   this.loginRequestService.getUserByToken().subscribe((user) => {
+    //     this.userService.user = user;
+    //
+    //     this.userService.needsUpdateHeader$.next();
+    //   }, this.logout);
+    // }
   }
 
   get isLoggedIn(): boolean {
+    console.log(this.userService.user);
     return !!this.token && this.userService.user != null;
   }
 

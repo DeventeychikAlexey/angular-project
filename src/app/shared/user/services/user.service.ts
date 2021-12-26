@@ -16,7 +16,7 @@ export class UserService {
   constructor(private router: Router) {}
 
   goToUserPage(): Promise<boolean> {
-    return this.router.navigate(['/', 'users', this.user?.id]);
+    return this.router.navigate(['/', 'user', this.user?.id]);
   }
 
   isMe(user: UserInterface) {

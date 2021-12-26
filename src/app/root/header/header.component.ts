@@ -7,5 +7,5 @@ import { HeaderService } from './services/header.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  constructor(public routesService: HeaderService) {}
+  constructor(public headerService: HeaderService) {}
 }

@@ -1,0 +1,14 @@
+<section class="section">
+  <div class="container">
+    <app-form-button
+      text="Create collection"
+      color="primary"
+      [routerLink]="'/user/' + userService.user!.id + '/create-collection'"
+    ></app-form-button>
+  </div>
+</section>
+
+<app-collections-section
+  [collections]="collectionService.collections"
+  title="Collections"
+></app-collections-section>

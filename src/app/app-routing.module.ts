@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthorizationGuard } from './features/authorization-feature/guards/authorization.guard';
 
 const routes: Routes = [
   {
     path: 'auth',
+    canLoad: [AuthorizationGuard],
     loadChildren: () =>
       import(
         './features/authorization-feature/authorization-feature.module'
@@ -17,6 +19,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'user',
+    loadChildren: () =>
+      import('./features/user-feature/user-feature.module').then(
+        (module) => module.UserFeatureModule
+      ),
+  },
+  {
     path: '**',
     pathMatch: 'full',
     redirectTo: 'auth/login',
@@ -24,6 +33,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  providers: [AuthorizationGuard],
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
