@@ -15,9 +15,18 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FormsService } from './forms/services/forms.service';
 import { DialogComponent } from './dialog/dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CollectionComponent } from './collections/components/collection/collection.component';
+import { CollectionsComponent } from './collections/components/collections/collections.component';
+import { CollectionSectionComponent } from './collections/components/collection-section/collection-section.component';
+import { MatCardModule } from '@angular/material/card';
+import { RouterModule } from '@angular/router';
+import { CollectionsSectionComponent } from './collections/components/collections-section/collections-section.component';
+import { ListComponent } from './list/list.component';
+import { SearchComponent } from './search/search.component';
+import { DialogService } from './dialog/services/dialog.service';
 
 @NgModule({
-  providers: [FormsService],
+  providers: [FormsService, DialogService],
   declarations: [
     FormFieldInputComponent,
     FormFieldSelectComponent,
@@ -25,6 +34,12 @@ import { MatDialogModule } from '@angular/material/dialog';
     FormButtonComponent,
     ProgressBarComponent,
     DialogComponent,
+    CollectionComponent,
+    CollectionsComponent,
+    CollectionSectionComponent,
+    CollectionsSectionComponent,
+    ListComponent,
+    SearchComponent,
   ],
   exports: [
     FormFieldInputComponent,
@@ -33,6 +48,12 @@ import { MatDialogModule } from '@angular/material/dialog';
     FormButtonComponent,
     ProgressBarComponent,
     DialogComponent,
+    CollectionComponent,
+    CollectionsComponent,
+    CollectionSectionComponent,
+    CollectionsSectionComponent,
+    ListComponent,
+    SearchComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +65,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatButtonModule,
     MatProgressBarModule,
     MatDialogModule,
+    MatCardModule,
+    RouterModule,
   ],
 })
 export class SharedModule {}

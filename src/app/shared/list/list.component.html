@@ -1,0 +1,17 @@
+<section class="section">
+  <div class="container">
+    <h2 class="section-title text-center">{{ title }}</h2>
+
+    <app-search
+      *ngIf="isSearchable"
+      [field]="field"
+      [label]="label"
+      [ignoreCase]="ignoreCase"
+      [list]="list"
+      (listChange)="listService.list = $event"
+    >
+    </app-search>
+
+    <ng-container *ngTemplateOutlet="listTemplate"></ng-container>
+  </div>
+</section>

@@ -1,0 +1,61 @@
+<mat-card class="collection">
+  <mat-card-header>
+    <mat-card-title>{{ collection.name }}</mat-card-title>
+
+    <mat-card-subtitle>{{ collection.topic.name }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content class="collection-content">
+    <!--    <img-->
+    <!--      [routerLink]="linkToCollectionPage"-->
+    <!--      class="img"-->
+    <!--      [class.contain]="isImageLoading"-->
+    <!--      mat-card-image-->
+    <!--      [src]="currentImage"-->
+    <!--      [alt]="'collection-' + collection.id + '-image'"-->
+    <!--    />-->
+
+    <p>
+      {{ collection.description }}
+    </p>
+  </mat-card-content>
+
+  <mat-card-actions class="buttons">
+    <button
+      *ngIf="collection.isViewable"
+      mat-button
+      [routerLink]="'/collection/' + this.collection.id"
+      color="primary"
+    >
+      View
+    </button>
+
+    <button
+      *ngIf="collection.isChangeable"
+      mat-button
+      color="accent"
+      [routerLink]="'/collection/edit/' + this.collection.id"
+    >
+      Change
+    </button>
+
+    <button
+      *ngIf="collection.isRemovable"
+      (click)="dialogService.openDialog(this.dialogComponent)"
+      mat-button
+      color="warn"
+    >
+      Remove
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+<ng-template #dialog>
+  <app-dialog
+    title="Confirm removing"
+    text="Are you sure?"
+    [actions]="
+      [{ title: 'Remove', handler: remove.apply(this), color: 'warn' }]!
+    "
+  ></app-dialog>
+</ng-template>

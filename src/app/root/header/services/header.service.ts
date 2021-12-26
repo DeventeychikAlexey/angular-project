@@ -1,12 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { of, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { RouteInterface } from '../interfaces/route.interface';
 import { UserService } from '../../../shared/user/services/user.service';
 import { LoginService } from '../../../features/authorization-feature/services/login.service';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { ColorsEnum } from '../../enums/colors.enum';
-// import { LoginService } from '../../login/services/login.service';
-// import { SnackBarService } from '../../services/snack-bar.service';
 
 function noop() {}
 
@@ -48,7 +46,7 @@ export class HeaderService implements OnDestroy {
   private updateRoutes() {
     let routes: RouteInterface[] = [
       {
-        route: `/home`,
+        route: `/guest/home`,
         title: 'Home',
         handler: noop,
       },

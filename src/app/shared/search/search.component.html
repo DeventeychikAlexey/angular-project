@@ -1,0 +1,7 @@
+<form (ngSubmit)="submit()" [formGroup]="formGroup">
+  <app-form-field-input
+    [label]="label"
+    [control]="formGroup.get('filterValue')!"
+    appearance="legacy"
+  ></app-form-field-input>
+</form>

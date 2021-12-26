@@ -10,6 +10,13 @@ const routes: Routes = [
       ).then((module) => module.AuthorizationFeatureModule),
   },
   {
+    path: 'guest',
+    loadChildren: () =>
+      import('./features/guest-feature/guest-feature.module').then(
+        (module) => module.GuestFeatureModule
+      ),
+  },
+  {
     path: '**',
     pathMatch: 'full',
     redirectTo: 'auth/login',
