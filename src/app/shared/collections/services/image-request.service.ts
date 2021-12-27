@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class ImageRequestService {
   constructor(private http: HttpClient) {}
 
-  getImage(id: number): Observable<string> {
-    return this.http.get<string>(environment.baseURI + 'image/' + id);
+  getImage(collectionId: number): Observable<string> {
+    return this.http.get<string>(environment.baseURI + 'image/' + collectionId);
   }
 }

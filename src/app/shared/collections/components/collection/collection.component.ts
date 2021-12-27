@@ -7,6 +7,7 @@ import { SnackBarService } from '../../../../root/services/snack-bar.service';
 import { CollectionService } from '../../services/collection.service';
 import { DialogActionInterface } from '../../../dialog/interfaces/dialog-action.interface';
 import { ColorsEnum } from '../../../../root/enums/colors.enum';
+import { ImageRequestService } from '../../services/image-request.service';
 
 @Component({
   selector: 'app-collection',
@@ -18,6 +19,9 @@ export class CollectionComponent implements OnInit {
     { title: 'Remove', handler: this.remove.bind(this), color: 'warn' },
   ];
 
+  imageSrc = './assets/images/load.gif';
+  isImageLoading = true;
+
   @Input() collection!: CollectionInterface;
 
   @ViewChild('dialog') dialogComponent!: ComponentType<unknown>;
@@ -26,10 +30,16 @@ export class CollectionComponent implements OnInit {
     public dialogService: DialogService,
     private collectionRequestService: CollectionRequestService,
     private snackBarService: SnackBarService,
-    private collectionService: CollectionService
+    private collectionService: CollectionService,
+    private imageRequestService: ImageRequestService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.imageRequestService.getImage(this.collection.id).subscribe((image) => {
+      this.isImageLoading = false;
+      this.imageSrc = image;
+    });
+  }
 
   remove() {
     this.collectionRequestService

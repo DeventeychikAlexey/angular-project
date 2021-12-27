@@ -6,14 +6,14 @@
   </mat-card-header>
 
   <mat-card-content class="collection-content">
-    <!--    <img-->
-    <!--      [routerLink]="linkToCollectionPage"-->
-    <!--      class="img"-->
-    <!--      [class.contain]="isImageLoading"-->
-    <!--      mat-card-image-->
-    <!--      [src]="currentImage"-->
-    <!--      [alt]="'collection-' + collection.id + '-image'"-->
-    <!--    />-->
+    <img
+      [routerLink]="'/collection/' + this.collection.id"
+      class="img"
+      mat-card-image
+      [alt]="'collection-' + collection.id + '-image'"
+      [src]="imageSrc"
+      [class.contain]="isImageLoading"
+    />
 
     <p>
       {{ collection.description }}
