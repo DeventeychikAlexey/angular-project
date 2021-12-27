@@ -24,6 +24,10 @@ import { CollectionsSectionComponent } from './collections/components/collection
 import { ListComponent } from './list/list.component';
 import { SearchComponent } from './search/search.component';
 import { DialogService } from './dialog/services/dialog.service';
+import { UppyComponent } from './uppy/uppy.component';
+import { CollectionSectionCardFormComponent } from './collections/components/collection-section-card-form/collection-section-card-form.component';
+import { CollectionSectionCardFormCreateComponent } from './collections/components/collection-section-card-form-create/collection-section-card-form-create.component';
+import { CollectionSectionCardFormEditComponent } from './collections/components/collection-section-card-form-edit/collection-section-card-form-edit.component';
 
 @NgModule({
   providers: [FormsService, DialogService],
@@ -40,6 +44,10 @@ import { DialogService } from './dialog/services/dialog.service';
     CollectionsSectionComponent,
     ListComponent,
     SearchComponent,
+    UppyComponent,
+    CollectionSectionCardFormComponent,
+    CollectionSectionCardFormCreateComponent,
+    CollectionSectionCardFormEditComponent,
   ],
   exports: [
     FormFieldInputComponent,
@@ -54,6 +62,8 @@ import { DialogService } from './dialog/services/dialog.service';
     CollectionsSectionComponent,
     ListComponent,
     SearchComponent,
+    CollectionSectionCardFormCreateComponent,
+    CollectionSectionCardFormEditComponent,
   ],
   imports: [
     CommonModule,

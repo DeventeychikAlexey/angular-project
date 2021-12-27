@@ -5,6 +5,7 @@ import { CollectionInterface } from '../interfaces/collection.interface';
 import { LoginService } from '../../../features/authorization-feature/services/login.service';
 import { UserService } from '../../user/services/user.service';
 import { environment } from '../../../../environments/environment';
+import { CollectionFormBodyInterface } from '../interfaces/collection-form-body.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,10 @@ export class CollectionRequestService {
 
   getCollectionById(id: number): Observable<CollectionInterface> {
     return this.http.get<CollectionInterface>(
-      environment.baseURI + 'collection/' + id
+      environment.baseURI +
+        `${this.loginService.isLoggedIn ? 'user/' : ''}` +
+        'collection/' +
+        id
     );
   }
 
@@ -39,31 +43,31 @@ export class CollectionRequestService {
     );
   }
 
-  // createCollection(
-  //   id: number,
-  //   body: CollectionFormBodyInterface
-  // ): Observable<ResponseInterface> {
-  //   return this.http.post<ResponseInterface>(
-  //     environment.baseURI +
-  //       this.usersService.getUserOrAdmin(this.loginService.user) +
-  //       '/collections/' +
-  //       id,
-  //     body
-  //   );
-  // }
+  createCollection(
+    id: number,
+    body: CollectionFormBodyInterface
+  ): Observable<CollectionInterface> {
+    return this.http.post<CollectionInterface>(
+      environment.baseURI +
+        this.userService.getUserOrAdmin() +
+        '/collections/' +
+        id,
+      body
+    );
+  }
 
-  // editCollection(
-  //   id: number,
-  //   body: CollectionFormBodyInterface
-  // ): Observable<ResponseInterface> {
-  //   return this.http.put<ResponseInterface>(
-  //     environment.baseURI +
-  //       this.usersService.getUserOrAdmin(this.loginService.user) +
-  //       '/collection/' +
-  //       id,
-  //     body
-  //   );
-  // }
+  editCollection(
+    id: number,
+    body: CollectionFormBodyInterface
+  ): Observable<CollectionInterface> {
+    return this.http.put<CollectionInterface>(
+      environment.baseURI +
+        this.userService.getUserOrAdmin() +
+        '/collection/' +
+        id,
+      body
+    );
+  }
 
   removeCollection(id: number): Observable<boolean> {
     return this.http.delete<boolean>(

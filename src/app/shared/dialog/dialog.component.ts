@@ -10,4 +10,6 @@ export class DialogComponent {
   @Input() title?: string;
   @Input() text?: string;
   @Input() actions: DialogActionInterface[] = [];
+
+  constructor() {}
 }

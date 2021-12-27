@@ -5,6 +5,8 @@ import { ComponentType } from '@angular/cdk/overlay';
 import { CollectionRequestService } from '../../services/collection-request.service';
 import { SnackBarService } from '../../../../root/services/snack-bar.service';
 import { CollectionService } from '../../services/collection.service';
+import { DialogActionInterface } from '../../../dialog/interfaces/dialog-action.interface';
+import { ColorsEnum } from '../../../../root/enums/colors.enum';
 
 @Component({
   selector: 'app-collection',
@@ -12,6 +14,10 @@ import { CollectionService } from '../../services/collection.service';
   styleUrls: ['./collection.component.scss'],
 })
 export class CollectionComponent implements OnInit {
+  actions: DialogActionInterface[] = [
+    { title: 'Remove', handler: this.remove.bind(this), color: 'warn' },
+  ];
+
   @Input() collection!: CollectionInterface;
 
   @ViewChild('dialog') dialogComponent!: ComponentType<unknown>;
@@ -30,7 +36,9 @@ export class CollectionComponent implements OnInit {
       .removeCollection(this.collection.id)
       .subscribe(() => {
         this.collectionService.updaterCollections$.next();
-        this.snackBarService.openSnackBar('Successfully deleted!');
+        this.snackBarService.openSnackBar('Successfully deleted!', {
+          panelClass: ColorsEnum.Success,
+        });
       });
   }
 }

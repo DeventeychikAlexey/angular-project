@@ -26,6 +26,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'collection',
+    loadChildren: () =>
+      import('./features/collection-feature/collection-feature.module').then(
+        (module) => module.CollectionFeatureModule
+      ),
+  },
+  {
     path: '**',
     pathMatch: 'full',
     redirectTo: 'auth/login',

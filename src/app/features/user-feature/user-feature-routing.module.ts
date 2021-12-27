@@ -4,6 +4,8 @@ import { UserComponent } from './components/user/user.component';
 import { UserResolver } from '../../shared/user/resolvers/user.resolver';
 import { UserCollectionsResolver } from '../../shared/user/resolvers/user-collections.resolver';
 import { AuthorizationGuard } from '../authorization-feature/guards/authorization.guard';
+import { CollectionCreateComponent } from './components/collection-create/collection-create.component';
+import { TopicsResolver } from '../../shared/collections/resolvers/topics.resolver';
 
 const routes: Routes = [
   {
@@ -16,7 +18,9 @@ const routes: Routes = [
       },
       {
         path: 'create-collection',
+        resolve: { topics: TopicsResolver },
         canActivate: [AuthorizationGuard],
+        children: [{ path: '', component: CollectionCreateComponent }],
       },
     ],
   },

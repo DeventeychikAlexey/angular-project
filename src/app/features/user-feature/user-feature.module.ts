@@ -8,6 +8,9 @@ import { UserService } from '../../shared/user/services/user.service';
 import { UserResolver } from '../../shared/user/resolvers/user.resolver';
 import { UserCollectionsResolver } from '../../shared/user/resolvers/user-collections.resolver';
 import { AuthorizationGuard } from '../authorization-feature/guards/authorization.guard';
+import { CollectionCreateComponent } from './components/collection-create/collection-create.component';
+import { TopicsService } from '../../shared/collections/services/topics.service';
+import { TopicsResolver } from '../../shared/collections/resolvers/topics.resolver';
 
 @NgModule({
   providers: [
@@ -16,8 +19,10 @@ import { AuthorizationGuard } from '../authorization-feature/guards/authorizatio
     UserResolver,
     UserCollectionsResolver,
     AuthorizationGuard,
+    TopicsService,
+    TopicsResolver,
   ],
-  declarations: [UserComponent],
+  declarations: [UserComponent, CollectionCreateComponent],
   imports: [CommonModule, UserFeatureRoutingModule, SharedModule],
 })
 export class UserFeatureModule {}

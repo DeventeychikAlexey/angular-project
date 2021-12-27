@@ -13,5 +13,4 @@ export interface CollectionInterface {
   };
   isChangeable: boolean;
   isRemovable: boolean;
-  isViewable: boolean;
 }

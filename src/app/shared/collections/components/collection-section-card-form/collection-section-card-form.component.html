@@ -1,0 +1,42 @@
+<section class="section">
+  <div class="container">
+    <mat-card>
+      <mat-card-content>
+        <h2 class="section-title text-center">{{ title }}</h2>
+
+        <form (ngSubmit)="submitForm()" [formGroup]="formGroup">
+          <app-uppy></app-uppy>
+
+          <app-form-field-input
+            [control]="formGroup.get('name')!"
+            label="Name"
+            required
+          ></app-form-field-input>
+
+          <app-form-field-select
+            [control]="formGroup.get('id_topic')!"
+            [list]="topicsService.topics"
+            label="Topic"
+            required
+          ></app-form-field-select>
+
+          <app-form-field-textarea
+            [control]="formGroup.get('description')!"
+            label="Description"
+          ></app-form-field-textarea>
+
+          <app-form-button
+            class="full-width"
+            type="submit"
+            [pending]="formGroup.pending"
+            [text]="buttonText"
+          ></app-form-button>
+        </form>
+      </mat-card-content>
+
+      <mat-card-footer>
+        <app-progress-bar [pending]="formGroup.pending"></app-progress-bar>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</section>

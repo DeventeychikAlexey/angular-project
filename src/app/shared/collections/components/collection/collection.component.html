@@ -22,7 +22,6 @@
 
   <mat-card-actions class="buttons">
     <button
-      *ngIf="collection.isViewable"
       mat-button
       [routerLink]="'/collection/' + this.collection.id"
       color="primary"
@@ -31,10 +30,18 @@
     </button>
 
     <button
+      mat-button
+      [routerLink]="'/user/' + this.collection.id_user"
+      color="primary"
+    >
+      Owner
+    </button>
+
+    <button
       *ngIf="collection.isChangeable"
       mat-button
       color="accent"
-      [routerLink]="'/collection/edit/' + this.collection.id"
+      [routerLink]="'/collection/' + this.collection.id + '/edit'"
     >
       Change
     </button>
@@ -54,8 +61,6 @@
   <app-dialog
     title="Confirm removing"
     text="Are you sure?"
-    [actions]="
-      [{ title: 'Remove', handler: remove.apply(this), color: 'warn' }]!
-    "
+    [actions]="actions"
   ></app-dialog>
 </ng-template>
