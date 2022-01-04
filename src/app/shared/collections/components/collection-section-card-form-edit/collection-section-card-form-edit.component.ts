@@ -5,6 +5,8 @@ import { ColorsEnum } from '../../../../root/enums/colors.enum';
 import { CollectionRequestService } from '../../services/collection-request.service';
 import { CollectionFormBodyInterface } from '../../interfaces/collection-form-body.interface';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { CollectionService } from '../../services/collection.service';
 
 @Component({
   selector: 'app-collection-section-card-form-edit',
@@ -29,7 +31,10 @@ export class CollectionSectionCardFormEditComponent {
     },
   };
 
-  constructor(private collectionRequestService: CollectionRequestService) {}
+  constructor(
+    private collectionRequestService: CollectionRequestService,
+    private collectionService: CollectionService
+  ) {}
 
   submit(body: CollectionFormBodyInterface): Observable<CollectionInterface> {
     return this.collectionRequestService.editCollection(

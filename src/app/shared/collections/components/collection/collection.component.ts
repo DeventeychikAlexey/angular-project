@@ -49,6 +49,7 @@ export class CollectionComponent implements OnInit {
         this.snackBarService.openSnackBar('Successfully deleted!', {
           panelClass: ColorsEnum.Success,
         });
+        this.collectionService.goToUserPage().then();
       });
   }
 }

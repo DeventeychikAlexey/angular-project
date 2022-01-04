@@ -1,14 +1,12 @@
-<section class="section">
-  <div class="container">
-    <app-form-button
-      text="Create collection"
-      color="primary"
-      [routerLink]="'/user/' + userService.user!.id + '/create-collection'"
-    ></app-form-button>
-  </div>
-</section>
+<app-button-create
+  [routerLink]="'/user/' + userService.user!.id + '/create-collection'"
+  text="Create collection"
+></app-button-create>
 
 <app-collections-section
   [collections]="collectionService.collections"
+  [isSearchable]="true"
+  label="Find collection"
+  field="name"
   title="Collections"
 ></app-collections-section>

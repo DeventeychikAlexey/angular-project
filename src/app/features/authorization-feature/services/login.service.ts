@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { LoginRequestService } from './login-request.service';
 import { UserService } from '../../../shared/user/services/user.service';
 import { LoginFormBodyInterface } from '../interfaces/login-form-body.interface';
-import { merge, Observable } from 'rxjs';
+import { concat, merge, Observable } from 'rxjs';
 import { concatAll, tap } from 'rxjs/operators';
 import { UserInterface } from '../../../shared/user/interfaces/user.interface';
 
@@ -20,14 +20,14 @@ export class LoginService {
   }
 
   login(body: LoginFormBodyInterface): Observable<string | UserInterface> {
-    return merge([
+    return concat(
       this.loginRequestService
         .getUserToken(body)
         .pipe(tap((token) => (this.Token = token))),
       this.loginRequestService
         .getUserByToken()
-        .pipe(tap((user) => (this.userService.user = user))),
-    ]).pipe(concatAll());
+        .pipe(tap((user) => (this.userService.user = user)))
+    );
   }
 
   set Token(token: string) {

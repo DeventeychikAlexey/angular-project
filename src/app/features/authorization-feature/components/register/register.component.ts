@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-register-content',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss', '../../authorization.scss'],
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnDestroy {
   formGroup: FormGroup;

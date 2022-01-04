@@ -1,0 +1,22 @@
+<app-list
+  [title]="title"
+  [isSearchable]="isSearchable"
+  [ignoreCase]="ignoreCase"
+  [field]="field"
+  [label]="label"
+  [list]="items"
+  [listTemplate]="listTemplate"
+></app-list>
+
+<ng-template #listTemplate>
+  <app-items
+    *ngIf="listService.list.length > 0; else emptyList"
+    [items]="listService.list"
+  ></app-items>
+
+  <ng-template #emptyList>
+    <br />
+
+    <p class="text-center">No items</p>
+  </ng-template>
+</ng-template>

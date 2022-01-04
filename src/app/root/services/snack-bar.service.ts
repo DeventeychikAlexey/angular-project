@@ -5,8 +5,7 @@ import { ColorsEnum } from '../enums/colors.enum';
 @Injectable({ providedIn: 'root' })
 export class SnackBarService {
   private config: MatSnackBarConfig = {
-    verticalPosition: 'bottom',
-    horizontalPosition: 'end',
+    horizontalPosition: 'center',
     panelClass: ColorsEnum.Info,
     duration: 3000,
   };

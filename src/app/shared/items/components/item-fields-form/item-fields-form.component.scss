@@ -1,0 +1,15 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+
+  margin: -5px;
+
+  .column {
+    flex: 1 1 33%;
+    margin: 5px;
+  }
+}
+
+h3 {
+  font-size: 20px;
+}

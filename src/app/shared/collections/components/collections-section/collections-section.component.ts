@@ -9,11 +9,11 @@ import { ListService } from '../../../list/services/list.service';
   styleUrls: ['./collections-section.component.scss'],
 })
 export class CollectionsSectionComponent implements OnChanges {
-  @Input() title = '';
+  @Input() title?: string;
   @Input() collections: CollectionInterface[] = [];
   @Input() field?: string;
   @Input() label?: string;
-  @Input() ignoreCase?: boolean;
+  @Input() ignoreCase: boolean = true;
   @Input() isSearchable?: boolean;
 
   constructor(public listService: ListService<CollectionInterface>) {}

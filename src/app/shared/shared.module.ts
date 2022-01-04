@@ -28,6 +28,17 @@ import { UppyComponent } from './uppy/uppy.component';
 import { CollectionSectionCardFormComponent } from './collections/components/collection-section-card-form/collection-section-card-form.component';
 import { CollectionSectionCardFormCreateComponent } from './collections/components/collection-section-card-form-create/collection-section-card-form-create.component';
 import { CollectionSectionCardFormEditComponent } from './collections/components/collection-section-card-form-edit/collection-section-card-form-edit.component';
+import { ItemComponent } from './items/components/item/item.component';
+import { ItemsComponent } from './items/components/items/items.component';
+import { ItemSectionComponent } from './items/components/item-section/item-section.component';
+import { ItemsSectionComponent } from './items/components/items-section/items-section.component';
+import { ButtonCreateComponent } from './button-create/button-create.component';
+import { ItemSectionCardFormComponent } from './items/components/item-section-card-form/item-section-card-form.component';
+import { ItemSectionCardFormCreateComponent } from './items/components/item-section-card-form-create/item-section-card-form-create.component';
+import { ItemSectionCardFormEditComponent } from './items/components/item-section-card-form-edit/item-section-card-form-edit.component';
+import { MatIconModule } from '@angular/material/icon';
+import { ItemFieldsComponent } from './items/components/item-fields/item-fields.component';
+import { ItemFieldsFormComponent } from './items/components/item-fields-form/item-fields-form.component';
 
 @NgModule({
   providers: [FormsService, DialogService],
@@ -48,6 +59,16 @@ import { CollectionSectionCardFormEditComponent } from './collections/components
     CollectionSectionCardFormComponent,
     CollectionSectionCardFormCreateComponent,
     CollectionSectionCardFormEditComponent,
+    ItemComponent,
+    ItemsComponent,
+    ItemSectionComponent,
+    ItemsSectionComponent,
+    ButtonCreateComponent,
+    ItemSectionCardFormComponent,
+    ItemSectionCardFormCreateComponent,
+    ItemSectionCardFormEditComponent,
+    ItemFieldsComponent,
+    ItemFieldsFormComponent,
   ],
   exports: [
     FormFieldInputComponent,
@@ -64,6 +85,14 @@ import { CollectionSectionCardFormEditComponent } from './collections/components
     SearchComponent,
     CollectionSectionCardFormCreateComponent,
     CollectionSectionCardFormEditComponent,
+    ItemComponent,
+    ItemsComponent,
+    ItemSectionComponent,
+    ItemsSectionComponent,
+    ButtonCreateComponent,
+    ItemSectionCardFormComponent,
+    ItemSectionCardFormCreateComponent,
+    ItemSectionCardFormEditComponent,
   ],
   imports: [
     CommonModule,
@@ -77,6 +106,7 @@ import { CollectionSectionCardFormEditComponent } from './collections/components
     MatDialogModule,
     MatCardModule,
     RouterModule,
+    MatIconModule,
   ],
 })
 export class SharedModule {}

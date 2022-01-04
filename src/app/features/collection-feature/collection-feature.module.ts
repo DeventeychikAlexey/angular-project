@@ -8,6 +8,9 @@ import { CollectionService } from '../../shared/collections/services/collection.
 import { CollectionEditComponent } from './components/collection-edit/collection-edit.component';
 import { TopicsService } from '../../shared/collections/services/topics.service';
 import { TopicsResolver } from '../../shared/collections/resolvers/topics.resolver';
+import { ItemService } from '../../shared/items/services/item.service';
+import { CollectionItemsResolver } from '../../shared/items/resolvers/collection-items.resolver';
+import { ItemCreateComponent } from './components/item-create/item-create.component';
 
 @NgModule({
   providers: [
@@ -15,8 +18,10 @@ import { TopicsResolver } from '../../shared/collections/resolvers/topics.resolv
     CollectionService,
     TopicsService,
     TopicsResolver,
+    ItemService,
+    CollectionItemsResolver,
   ],
-  declarations: [CollectionViewComponent, CollectionEditComponent],
+  declarations: [CollectionViewComponent, CollectionEditComponent, ItemCreateComponent],
   imports: [CommonModule, CollectionFeatureRoutingModule, SharedModule],
 })
 export class CollectionFeatureModule {}

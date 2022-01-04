@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { FormLoginErrorsEnum } from '../../../../../../frontAngular/src/app/enums/form-login-errors.enum';
 
 @Injectable({
   providedIn: 'root',

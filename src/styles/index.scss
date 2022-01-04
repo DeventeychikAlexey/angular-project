@@ -1,7 +1,7 @@
-@use "~@angular/material" as mat;
+@use "../../node_modules/@angular/material/index" as mat;
 
 @import "normalize.css";
-@import "app/shared/uppy/uppy.component";
+@import "../app/shared/uppy/uppy.component";
 
 $primary-color: mat.get-color-from-palette(mat.$indigo-palette, 500);
 $info-color: mat.get-color-from-palette(mat.$indigo-palette, 300);

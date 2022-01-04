@@ -1,0 +1,61 @@
+<section class="section">
+  <div class="container">
+    <mat-card>
+      <mat-card-content>
+        <h2 class="section-title text-center">{{ title }}</h2>
+
+        <form (ngSubmit)="submitForm()" [formGroup]="itemFormService.formGroup">
+          <app-form-field-input
+            [control]="itemFormService.formGroup.get('name')!"
+            label="Name"
+            required
+          ></app-form-field-input>
+
+          <app-item-fields-form
+            [add]="itemFormService.addFieldNumber.bind(itemFormService)"
+            [formArray]="itemFormService.fieldsNumber"
+            title="Number fields:"
+            type="number"
+          ></app-item-fields-form>
+
+          <app-item-fields-form
+            [add]="itemFormService.addFieldDate.bind(itemFormService)"
+            [formArray]="itemFormService.fieldsDate"
+            title="Date fields:"
+            type="date"
+          ></app-item-fields-form>
+
+          <app-item-fields-form
+            [add]="itemFormService.addFieldText.bind(itemFormService)"
+            [formArray]="itemFormService.fieldsText"
+            title="Text fields:"
+          ></app-item-fields-form>
+
+          <!--          <app-item-fields-form-->
+          <!--            [add]="itemFormService.addFieldBoolean.bind(itemFormService)"-->
+          <!--            [formArray]="itemFormService.fieldsBoolean"-->
+          <!--            max="1"-->
+          <!--            min="0"-->
+          <!--            title="Logical fields:"-->
+          <!--            type="number"-->
+          <!--          ></app-item-fields-form>-->
+
+          <br />
+
+          <app-form-button
+            [pending]="itemFormService.formGroup.pending"
+            [text]="buttonText"
+            class="full-width"
+            type="submit"
+          ></app-form-button>
+        </form>
+      </mat-card-content>
+
+      <mat-card-footer>
+        <app-progress-bar
+          [pending]="itemFormService.formGroup.pending"
+        ></app-progress-bar>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</section>

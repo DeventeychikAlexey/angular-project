@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { UppyService } from '../../../uppy/services/uppy.service';
 import { ColorsEnum } from '../../../../root/enums/colors.enum';
 import { CollectionRequestService } from '../../services/collection-request.service';

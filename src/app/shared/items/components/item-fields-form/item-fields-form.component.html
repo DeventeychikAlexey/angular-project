@@ -1,0 +1,42 @@
+<h3 class="text-center">{{ title }}</h3>
+
+<div class="row">
+  <app-form-button
+    (click)="add()"
+    class="column"
+    color="accent"
+    text="+"
+    type="button"
+  ></app-form-button>
+
+  <app-form-button
+    (click)="itemFormService.removeField(formArray)"
+    class="column"
+    color="warn"
+    text="-"
+    type="button"
+  ></app-form-button>
+</div>
+
+<ng-container *ngFor="let control of formArray.controls; let i = index">
+  <div class="row">
+    <app-form-field-input
+      [control]="control.get('title')!"
+      [label]="'Name ' + i"
+      class="column"
+      required
+    ></app-form-field-input>
+
+    <app-form-field-input
+      [control]="control.get('value')!"
+      [label]="'Value ' + i"
+      [max]="max"
+      [min]="min"
+      [type]="type"
+      class="column"
+      required
+    ></app-form-field-input>
+  </div>
+</ng-container>
+
+<br />

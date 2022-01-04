@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss', '../../authorization.scss'],
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnDestroy {
   formGroup: FormGroup;

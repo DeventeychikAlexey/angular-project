@@ -33,9 +33,16 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'item',
+    loadChildren: () =>
+      import('./features/item-feature/item-feature.module').then(
+        (module) => module.ItemFeatureModule
+      ),
+  },
+  {
     path: '**',
     pathMatch: 'full',
-    redirectTo: 'auth/login',
+    redirectTo: 'guest/home',
   },
 ];
 

@@ -22,7 +22,6 @@ export class UserComponent implements OnDestroy {
         this.collectionRequestService
           .getUserCollections(this.userService.user!.id)
           .subscribe((collections) => {
-            console.log('hi');
             this.collectionService.collections = collections;
           });
       });

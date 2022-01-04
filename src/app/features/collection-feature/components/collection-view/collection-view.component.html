@@ -1,3 +1,17 @@
 <app-collection-section
   [collection]="collectionService.collection"
 ></app-collection-section>
+
+<app-button-create
+  text="Create item"
+  [routerLink]="
+    '/collection/' + collectionService.collection!.id + '/create-item'
+  "
+></app-button-create>
+
+<app-items-section
+  [isSearchable]="true"
+  label="Find collection's items"
+  field="name"
+  [items]="itemService.items"
+></app-items-section>

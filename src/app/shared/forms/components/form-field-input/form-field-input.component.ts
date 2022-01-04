@@ -14,4 +14,6 @@ export class FormFieldInputComponent {
   @Input() type = 'text';
   @Input() appearance: MatFormFieldAppearance = 'outline';
   @Input() required = false;
+  @Input() max?: number;
+  @Input() min?: number;
 }
