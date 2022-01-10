@@ -13,4 +13,8 @@ export class UserRequestService {
   getUserById(id: number): Observable<UserInterface> {
     return this.http.get<UserInterface>(environment.baseURI + 'users/' + id);
   }
+
+  getUsers(): Observable<UserInterface[]> {
+    return this.http.get<UserInterface[]>(environment.baseURI + 'users');
+  }
 }

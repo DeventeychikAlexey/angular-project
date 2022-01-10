@@ -1,0 +1,96 @@
+<app-list [listTemplate]="table" title="Users"></app-list>
+
+<ng-template #table>
+  <div class="mat-elevation-z8">
+    <table [dataSource]="dataSource" class="full-width" mat-table matSort>
+      <ng-container matColumnDef="name">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>Name</th>
+
+        <td *matCellDef="let element" mat-cell>
+          <i>
+            {{ element.name }}
+          </i>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="right">
+        <th *matHeaderCellDef mat-header-cell>Right</th>
+
+        <td *matCellDef="let element" mat-cell>
+          {{ element.right.name }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="upgrade">
+        <th *matHeaderCellDef mat-header-cell></th>
+        <td *matCellDef="let element" mat-cell>
+          <button
+            (click)="upgrade(element); $event.stopPropagation()"
+            class="full-width"
+            color="primary"
+            mat-button
+          >
+            Upgrade
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="downgrade">
+        <th *matHeaderCellDef class="text-center" mat-header-cell></th>
+        <td *matCellDef="let element" mat-cell>
+          <button
+            (click)="downgrade(element); $event.stopPropagation()"
+            class="full-width"
+            color="accent"
+            mat-button
+          >
+            Downgrade
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="block">
+        <th *matHeaderCellDef class="text-center" mat-header-cell></th>
+        <td *matCellDef="let element" mat-cell>
+          <button
+            (click)="toggleBlocked(element); $event.stopPropagation()"
+            [color]="element.blocked ? 'accent' : 'primary'"
+            class="full-width"
+            mat-button
+          >
+            {{ element.blocked ? "Unblock" : "Block" }}
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th *matHeaderCellDef class="text-center" mat-header-cell></th>
+        <td *matCellDef="let element" mat-cell>
+          <button
+            (click)="delete(element); $event.stopPropagation()"
+            class="full-width"
+            color="warn"
+            mat-button
+          >
+            Delete
+          </button>
+        </td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+      <tr
+        *matRowDef="let user; columns: displayedColumns"
+        [class.bg-blocked]="user.blocked"
+        [routerLink]="'/user/' + user.id"
+        mat-row
+      ></tr>
+    </table>
+
+    <mat-paginator
+      [hidePageSize]="true"
+      [pageSizeOptions]="[10]"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+  </div>
+</ng-template>

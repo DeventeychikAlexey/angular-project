@@ -6,7 +6,7 @@ import { ColorsEnum } from '../enums/colors.enum';
 export class SnackBarService {
   private config: MatSnackBarConfig = {
     horizontalPosition: 'center',
-    panelClass: ColorsEnum.Info,
+    panelClass: ColorsEnum.Success,
     duration: 3000,
   };
 

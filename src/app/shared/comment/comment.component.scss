@@ -1,0 +1,39 @@
+.list {
+  max-height: 300px;
+  overflow: auto;
+
+  margin-top: 10px;
+  padding: 20px;
+
+  list-style: none;
+
+  border-radius: 3px;
+
+  box-shadow: 0px 0px 1px black;
+}
+
+.title {
+  cursor: pointer;
+
+  font-size: 16px;
+  font-weight: 500;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+
+  p {
+    margin: 0px 0px 0px 5px;
+  }
+
+  margin-bottom: 10px;
+}
+
+::ng-deep .mat-form-field-wrapper {
+  padding: 0;
+}

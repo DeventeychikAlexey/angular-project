@@ -1,0 +1,18 @@
+.mat-elevation-z8 {
+  overflow: auto;
+}
+
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+  overflow: auto;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+}
+
+.bg-blocked {
+  background-color: rgba(255, 255, 0, 0.2);
+}

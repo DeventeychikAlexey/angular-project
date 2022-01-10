@@ -12,6 +12,13 @@ const routes: Routes = [
       ).then((module) => module.AuthorizationFeatureModule),
   },
   {
+    path: 'admin',
+    loadChildren: () =>
+      import('./features/admin-feature/admin-feature.module').then(
+        (module) => module.AdminFeatureModule
+      ),
+  },
+  {
     path: 'guest',
     loadChildren: () =>
       import('./features/guest-feature/guest-feature.module').then(

@@ -16,11 +16,21 @@ const routes: Routes = [
       {
         path: 'edit',
         resolve: { topics: TopicsResolver },
-        children: [{ path: '', component: CollectionEditComponent }],
+        children: [
+          {
+            path: '',
+            component: CollectionEditComponent,
+          },
+        ],
       },
       {
         path: 'create-item',
-        children: [{ path: '', component: ItemCreateComponent }],
+        children: [
+          {
+            path: '',
+            component: ItemCreateComponent,
+          },
+        ],
       },
     ],
   },

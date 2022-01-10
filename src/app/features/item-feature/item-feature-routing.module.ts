@@ -12,7 +12,6 @@ const routes: Routes = [
       { path: '', component: ItemViewComponent },
       {
         path: 'edit',
-        // resolve: { topics: TopicsResolver },
         children: [{ path: '', component: ItemEditComponent }],
       },
     ],

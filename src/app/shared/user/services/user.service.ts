@@ -11,6 +11,7 @@ import { RightsNameEnum } from '../interfaces/rights-name.enum';
 })
 export class UserService {
   user: UserType = null;
+  users: UserInterface[] = [];
   needsUpdateHeader$ = new Subject();
 
   constructor(private router: Router) {}
@@ -19,7 +20,7 @@ export class UserService {
     return this.router.navigate(['/', 'user', this.user?.id]);
   }
 
-  isMe(user: UserInterface) {
+  isMe(user: UserInterface): boolean {
     if (this.user && user) {
       return this.user.id === user.id;
     }
@@ -27,7 +28,7 @@ export class UserService {
     return false;
   }
 
-  isAdmin(user: UserInterface) {
+  isAdmin(user: UserInterface): boolean {
     if (
       user?.id_right === RightsIdEnum.Admin ||
       user?.id_right === RightsIdEnum.Developer
@@ -38,11 +39,7 @@ export class UserService {
     return false;
   }
 
-  isMeOrAdmin(user: UserInterface) {
-    return this.isMe(user) || this.isAdmin(user);
-  }
-
-  getUserOrAdmin() {
+  getUserOrAdmin(): string {
     if (
       this.user?.id_right === RightsIdEnum.Admin ||
       this.user?.id_right === RightsIdEnum.Developer
@@ -51,5 +48,13 @@ export class UserService {
     }
 
     return RightsNameEnum.User;
+  }
+
+  getAdminOrDeveloper(): string {
+    if (this.user?.id_right === RightsIdEnum.Admin) {
+      return RightsNameEnum.Admin;
+    }
+
+    return RightsNameEnum.Developer;
   }
 }

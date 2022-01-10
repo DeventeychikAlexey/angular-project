@@ -43,6 +43,17 @@ export class HeaderService implements OnDestroy {
     this.menuActivated = true;
   }
 
+  logout() {
+    this.loginService.logout();
+    this.snackBarService.openSnackBar("You're logged out", {
+      panelClass: ColorsEnum.Success,
+    });
+  }
+
+  ngOnDestroy() {
+    this.headerUpdateSubscription.unsubscribe();
+  }
+
   private updateRoutes() {
     let routes: RouteInterface[] = [
       {
@@ -52,7 +63,8 @@ export class HeaderService implements OnDestroy {
       },
     ];
 
-    let loggedInRoutes: RouteInterface[];
+    let loggedInRoutes: RouteInterface[] = [];
+    let adminRoutes: RouteInterface[] = [];
 
     if (this.loginService.isLoggedIn) {
       loggedInRoutes = [
@@ -67,6 +79,16 @@ export class HeaderService implements OnDestroy {
           handler: noop,
         },
       ];
+
+      if (this.userService.isAdmin(this.userService.user!)) {
+        adminRoutes = [
+          {
+            route: '/admin',
+            title: 'Admin',
+            handler: noop,
+          },
+        ];
+      }
     } else {
       loggedInRoutes = [
         { route: '/auth/register', title: 'Register', handler: noop },
@@ -74,17 +96,6 @@ export class HeaderService implements OnDestroy {
       ];
     }
 
-    this.routes = [...loggedInRoutes, ...routes].reverse();
-  }
-
-  logout() {
-    this.loginService.logout();
-    this.snackBarService.openSnackBar("You're logged out", {
-      panelClass: ColorsEnum.Success,
-    });
-  }
-
-  ngOnDestroy() {
-    this.headerUpdateSubscription.unsubscribe();
+    this.routes = [...loggedInRoutes, ...adminRoutes, ...routes].reverse();
   }
 }

@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 import { UserService } from '../../../../shared/user/services/user.service';
 import { SnackBarService } from '../../../../root/services/snack-bar.service';
-import { ColorsEnum } from '../../../../../../../frontAngular/src/app/enums/colors.enum';
 import { FormsErrorService } from '../../../../shared/forms/services/forms-error.service';
 import { Subscription } from 'rxjs';
+import { ColorsEnum } from '../../../../root/enums/colors.enum';
 
 @Component({
   selector: 'app-login',

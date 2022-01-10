@@ -39,6 +39,8 @@ import { ItemSectionCardFormEditComponent } from './items/components/item-sectio
 import { MatIconModule } from '@angular/material/icon';
 import { ItemFieldsComponent } from './items/components/item-fields/item-fields.component';
 import { ItemFieldsFormComponent } from './items/components/item-fields-form/item-fields-form.component';
+import { CommentComponent } from './comment/comment.component';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   providers: [FormsService, DialogService],
@@ -69,6 +71,7 @@ import { ItemFieldsFormComponent } from './items/components/item-fields-form/ite
     ItemSectionCardFormEditComponent,
     ItemFieldsComponent,
     ItemFieldsFormComponent,
+    CommentComponent,
   ],
   exports: [
     FormFieldInputComponent,
@@ -93,6 +96,7 @@ import { ItemFieldsFormComponent } from './items/components/item-fields-form/ite
     ItemSectionCardFormComponent,
     ItemSectionCardFormCreateComponent,
     ItemSectionCardFormEditComponent,
+    CommentComponent,
   ],
   imports: [
     CommonModule,
@@ -107,6 +111,7 @@ import { ItemFieldsFormComponent } from './items/components/item-fields-form/ite
     MatCardModule,
     RouterModule,
     MatIconModule,
+    MatListModule,
   ],
 })
 export class SharedModule {}
